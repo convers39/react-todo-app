@@ -1,0 +1,103 @@
+$red: #e74c3c;
+$yellow: #f1c40f;
+$green: #2ecc71;
+.btn {
+  box-sizing: border-box;
+  appearance: none;
+  background-color: transparent;
+  border: 2px solid $red;
+  border-radius: 0.6rem;
+  color: $red;
+  cursor: pointer;
+  display: flex;
+  align-self: center;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1;
+  margin: 0.8rem;
+  padding: 0.5rem;
+  text-decoration: none;
+  text-align: center;
+  text-transform: uppercase;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+
+  &:hover,
+  &:focus {
+    color: #fff;
+    outline: 0;
+  }
+}
+
+.delete {
+  transition: box-shadow 300ms ease-in-out, color 300ms ease-in-out;
+  &:hover {
+    box-shadow: 0 0 40px 40px $red inset;
+  }
+}
+
+.edit {
+  transition: box-shadow 300ms ease-in-out, color 300ms ease-in-out;
+  &:hover {
+    box-shadow: 0 0 40px 40px $yellow inset;
+  }
+  border-color: $yellow;
+  color: $yellow;
+}
+
+.sort {
+  margin: 0;
+  padding: 0.5rem 1rem;
+  border-color: darkgray;
+  color: #fff;
+  box-shadow: 0 0 20px 20px darkgray inset, 0 0 0 0 darkgray;
+  transition: all 150ms ease-in-out;
+
+  &:hover {
+    color: darkgray;
+    box-shadow: 0 0 5px 0 darkgray inset, 0 0 5px 1px darkgray;
+  }
+}
+
+.add {
+  margin: 0;
+  padding: 0.5rem 1.5rem;
+  border-color: $green;
+  color: #fff;
+  box-shadow: 0 0 20px 20px $green inset, 0 0 0 0 $green;
+  transition: all 150ms ease-in-out;
+
+  &:hover {
+    opacity: 0.85;
+    transform: scale(1.05);
+  }
+}
+
+.create {
+  margin: 0;
+  padding: 0.5rem 1.5rem;
+  border-color: darkgray;
+  color: #fff;
+  box-shadow: 0 0 20px 20px darkgray inset, 0 0 0 0 darkgray;
+  transition: all 150ms ease-in-out;
+
+  &:hover {
+    opacity: 0.85;
+    transform: scale(1.05);
+  }
+}
+
+.cancel {
+  margin: 0 0.5rem;
+  padding: 0.5rem;
+
+  border: 2px solid gray;
+  color: gray;
+  transition: all 150ms ease-in-out, color 150ms ease-in-out;
+  &:hover {
+    opacity: 0.85;
+    transform: scale(1.05);
+    color: gray;
+    // box-shadow: 0 0 40px 40px $red inset;
+  }
+}
