@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import Select from 'react-select'
 import CreatableSelect from 'react-select/creatable'
 import styles from '../styles/AddTodo.module.scss'
 

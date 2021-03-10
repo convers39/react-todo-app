@@ -6,13 +6,13 @@ export default class Icon extends Component {
 
     switch (icon) {
       case 'delete':
-        return <i class='far fa-trash-alt'></i>
+        return <i className='far fa-trash-alt'></i>
       case 'edit':
-        return <i class='far fa-edit'></i>
+        return <i className='far fa-edit'></i>
       case 'sort':
-        return <i class='fas fa-sort-amount-down'></i>
+        return <i className='fas fa-sort-amount-down'></i>
       case 'add':
-        return <i class='fas fa-plus'></i>
+        return <i className='fas fa-plus'></i>
       default:
         return <span></span>
     }

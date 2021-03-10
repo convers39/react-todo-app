@@ -6,9 +6,9 @@ export default class FilterWrapper extends Component {
     const { id, children, filterName } = this.props
     return (
       <div className={styles.filter_container}>
-        <div class={styles.tab}>
+        <div className={styles.tab}>
           <input className={styles.checkbox} type='checkbox' id={id} />
-          <label class={styles.tab_label} for={id}>
+          <label className={styles.tab_label} htmlFor={id}>
             &#43;<span>{filterName}</span>
           </label>
           <div className={styles.tab_content}>{children}</div>
