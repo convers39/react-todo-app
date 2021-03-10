@@ -6,7 +6,6 @@ import styles from '../styles/TodoItem.module.scss'
 import Button from './Button'
 import Tag from './Tag'
 
-const mapDispatchToProps = { toggleFinished }
 class TodoItem extends Component {
   state = { todo: null }
 
@@ -57,6 +56,5 @@ class TodoItem extends Component {
   }
 }
 
-const TodoItemContainer = connect(null, mapDispatchToProps)(TodoItem)
-
-export default TodoItemContainer
+const mapDispatchToProps = { toggleFinished }
+export default connect(null, mapDispatchToProps)(TodoItem)

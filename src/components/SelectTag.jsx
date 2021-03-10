@@ -1,31 +1,17 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import CreatableSelect from 'react-select/creatable'
 import styles from '../styles/AddTodo.module.scss'
 
-export default class SelectTag extends Component {
-  // tag item
-  handleChange = (newValue, actionMeta) => {
-    console.group('Value Changed, new value:')
-    console.log(newValue)
-    // console.log(`action: ${actionMeta.action}`)
-    console.groupEnd()
-  }
+import { fetchTags } from '../actions/tags-action'
 
-  // direct input value
-  handleInputChange = (inputValue, actionMeta) => {
-    console.group('Input Changed, input value:')
-    console.log(inputValue)
-    // console.log(`action: ${actionMeta.action}`)
-    console.groupEnd()
+class SelectTag extends Component {
+  componentDidMount() {
+    this.props.fetchTags()
   }
-
   render() {
-    const options = [
-      { value: 1, label: 'js' },
-      { value: 2, label: 'react' },
-      { value: 3, label: 'python' }
-    ]
-
+    const { allTags } = this.props
+    const options = allTags.map((tag) => ({ value: tag, label: tag }))
     return (
       <>
         <CreatableSelect
@@ -38,8 +24,8 @@ export default class SelectTag extends Component {
           isSearchable={true}
           name='tag-selector'
           options={options}
-          onChange={this.handleChange}
-          onInputChange={this.handleInputChange}
+          onChange={this.props.onChange}
+          // onInputChange={this.handleInputChange}
           theme={(theme) => ({
             ...theme,
             colors: {
@@ -53,3 +39,9 @@ export default class SelectTag extends Component {
     )
   }
 }
+
+const mapDispatchToProps = { fetchTags }
+const mapStateToProps = (state) => ({
+  allTags: state.allTags
+})
+export default connect(mapStateToProps, mapDispatchToProps)(SelectTag)

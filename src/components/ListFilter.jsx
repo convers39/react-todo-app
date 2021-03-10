@@ -1,16 +1,20 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import styles from '../styles/SideBar.module.scss'
-import SideBarListContainer from './SideBarList'
+import SideBarList from './SideBarList'
+import { fetchLists } from '../actions/lists-action'
 
 class ListFilter extends Component {
+  componentDidMount() {
+    this.props.fetchLists()
+  }
   render() {
     const lists = this.props.allLists
     return (
       <div className={styles.list_container}>
         <ul className={styles.list_filter}>
           {lists.map((list) => (
-            <SideBarListContainer key={list.id} list={list} />
+            <SideBarList key={list.id} list={list} />
           ))}
         </ul>
       </div>
@@ -19,9 +23,8 @@ class ListFilter extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  allLists: state.allLists.allLists
+  allLists: state.allLists
 })
+const mapDispatchToProps = { fetchLists }
 
-const ListFilterContainer = connect(mapStateToProps)(ListFilter)
-
-export default ListFilterContainer
+export default connect(mapStateToProps, mapDispatchToProps)(ListFilter)

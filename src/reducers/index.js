@@ -1,12 +1,10 @@
 import { combineReducers } from 'redux'
 import listReducer from './list-reducer'
 import listsReducer from './lists-reducer'
-// import todoReducer from './todo-reducer'
+import tagsReducer from './tags-reducer'
 
 export default combineReducers({
   currentList: listReducer,
-  allLists: listsReducer
-  // todoItem: todoReducer
-  // remoteTags: tagsReducer,
-  // deletedTodos: deletedReducer
+  allLists: listsReducer,
+  allTags: tagsReducer
 })

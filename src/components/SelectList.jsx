@@ -1,13 +1,14 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import Select from 'react-select'
 import styles from '../styles/AddTodo.module.scss'
-
-export default class SingleSelect extends Component {
+class SelectList extends Component {
   render() {
-    const options = [
-      { value: 1, label: 'list 1' },
-      { value: 2, label: 'list 2' }
-    ]
+    console.log('SelectList', this.props)
+    const options = this.props.allLists.map((list) => ({
+      value: list.id,
+      label: list.name
+    }))
 
     return (
       <>
@@ -18,6 +19,7 @@ export default class SingleSelect extends Component {
           defaultValue={''}
           isClearable={true}
           isSearchable={true}
+          onChange={this.props.onChange}
           name='list-selector'
           options={options}
           theme={(theme) => ({
@@ -33,3 +35,7 @@ export default class SingleSelect extends Component {
     )
   }
 }
+const mapStateToProps = (state) => ({
+  allLists: state.allLists
+})
+export default connect(mapStateToProps)(SelectList)

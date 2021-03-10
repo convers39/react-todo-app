@@ -32,6 +32,5 @@ class CreateList extends Component {
 }
 
 const mapDispatchToProps = { addList }
-const CreateListContainer = connect(null, mapDispatchToProps)(CreateList)
 
-export default CreateListContainer
+export default connect(null, mapDispatchToProps)(CreateList)

@@ -11,6 +11,11 @@ registerLocale('en-ca', enCA)
 export default class SelectDate extends Component {
   state = { date: new Date() }
 
+  handleChange = (newDate) => {
+    this.setState({ date: newDate })
+    this.props.onChange(newDate)
+  }
+
   render() {
     return (
       <DatePicker
@@ -18,9 +23,7 @@ export default class SelectDate extends Component {
         className={styles.date_picker}
         id='datePicker'
         selected={this.state.date}
-        onChange={(val) => {
-          this.setState({ date: val })
-        }}
+        onChange={this.handleChange}
       />
     )
   }
