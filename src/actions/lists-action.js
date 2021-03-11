@@ -1,13 +1,10 @@
 import { updateLocalStorage, getDataFromLocalStorage } from '../initialData'
-
-const ADD_NEW_LIST = 'add_new_list'
-const REMOVE_LIST = 'remove_list'
-const FETCH_LISTS = 'fetch_lists'
+import * as ACTION from '../constants/lists-constant'
 
 export const fetchLists = () => {
   return (dispatch) => {
     const allLists = getDataFromLocalStorage('lists')
-    dispatch({ type: FETCH_LISTS, payload: { allLists } })
+    dispatch({ type: ACTION.FETCH_LISTS, payload: { allLists } })
   }
 }
 
@@ -19,7 +16,7 @@ export const addList = (listName) => {
     console.log('new all lists', newAllLists)
     newAllLists.push({ id: newAllLists.length + 1, name: listName })
     updateLocalStorage('lists', newAllLists)
-    dispatch({ type: ADD_NEW_LIST, payload: { newAllLists } })
+    dispatch({ type: ACTION.ADD_NEW_LIST, payload: { newAllLists } })
   }
 }
 
@@ -28,6 +25,6 @@ export const removeList = (listId) => {
     const allLists = getDataFromLocalStorage('lists')
     const newAllLists = allLists.filter((list) => list.id !== listId)
     updateLocalStorage('lists', newAllLists)
-    dispatch({ type: REMOVE_LIST, payload: { newAllLists } })
+    dispatch({ type: ACTION.REMOVE_LIST, payload: { newAllLists } })
   }
 }

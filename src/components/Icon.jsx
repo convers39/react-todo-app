@@ -13,6 +13,10 @@ export default class Icon extends Component {
         return <i className='fas fa-sort-amount-down'></i>
       case 'add':
         return <i className='fas fa-plus'></i>
+      case 'menu':
+        return <i className='fa fa-bars' aria-hidden='true'></i>
+      case 'home':
+        return <i className='fa fa-home' aria-hidden='true'></i>
       default:
         return <span></span>
     }

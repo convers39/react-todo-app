@@ -3,6 +3,10 @@ import styles from '../styles/Button.module.scss'
 import Icon from './Icon'
 
 export default class Button extends Component {
+  handleClick = (e) => {
+    e.preventDefault()
+    this.props.onClick()
+  }
   render() {
     let { buttonType, icon, text } = this.props
     let className = ''
@@ -19,6 +23,9 @@ export default class Button extends Component {
       case 'add':
         className = styles.add
         break
+      case 'expand':
+        className = styles.expand
+        break
       case 'create':
         className = styles.create
         break
@@ -29,7 +36,10 @@ export default class Button extends Component {
         break
     }
     return (
-      <button className={`${styles.btn} ${className}`}>
+      <button
+        className={`${styles.btn} ${className}`}
+        onClick={this.props.onClick && this.handleClick}
+      >
         <Icon icon={icon} />
         {text || ''}
       </button>

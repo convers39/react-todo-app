@@ -4,11 +4,15 @@ import Select from 'react-select'
 import styles from '../styles/AddTodo.module.scss'
 class SelectList extends Component {
   render() {
-    console.log('SelectList', this.props)
     const options = this.props.allLists.map((list) => ({
       value: list.id,
       label: list.name
     }))
+    // in edit mode retrieve default list
+    const defaultList =
+      this.props.default &&
+      options.filter((list) => list.value === this.props.default)[0]
+    console.log('list options', options, defaultList)
 
     return (
       <>
@@ -16,7 +20,7 @@ class SelectList extends Component {
           className={styles.list_selector}
           classNamePrefix='select'
           placeholder='List'
-          defaultValue={''}
+          defaultValue={defaultList || ''}
           isClearable={true}
           isSearchable={true}
           onChange={this.props.onChange}

@@ -1,64 +1,42 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import styles from '../styles/AddTodo.module.scss'
-import Button from './Button'
-import SelectDate from './SelectDate'
-import SelectList from './SelectList'
-import SelectTag from './SelectTag'
-
 import { addNewTodo } from '../actions/list-action'
-class AddTodo extends Component {
-  state = { listId: null, task: '', date: null, tags: [] }
+import TodoEditForm from './TodoEditForm'
+import Button from './Button'
 
-  handleSubmit = (e) => {
-    e.preventDefault()
-    console.log('handle submit', this.state)
-    this.props.addNewTodo(this.state)
+class AddTodo extends Component {
+  state = { editing: false }
+
+  handleSubmit = (todoData) => {
+    console.log('handle submit', todoData)
+    this.props.addNewTodo(todoData)
+    this.toggleEdit()
   }
-  handleInputChange = (e) => {
-    console.log(e.target.value)
-    this.setState((state) => ({ ...state, task: e.target.value }))
+  toggleEdit = () => {
+    this.setState(
+      (state) => ({ editing: !state.editing }),
+      console.log('toggle edit', this.state)
+    )
   }
-  handleListChange = (option) => {
-    console.log('add todo list change', option)
-    const listId = +option.value
-    this.setState((state) => ({ ...state, listId }))
-  }
-  handleTagChange = (options) => {
-    console.log('tag change', options)
-    const tags = options.map((obj) => obj.label)
-    this.setState((state) => ({ ...state, tags }))
-  }
-  handleDateChange = (date) => {
-    console.log('date change', date.toLocaleDateString('en-CA'))
-    this.setState((state) => ({
-      ...state,
-      date: date.toLocaleDateString('en-CA')
-    }))
-  }
+
   render() {
     return (
-      <form className={styles.task_editor} onSubmit={this.handleSubmit}>
-        <div className={styles.content}>
-          <div className={styles.textarea}>
-            <input
-              className={styles.input}
-              type='text'
-              placeholder='new task'
-              onChange={this.handleInputChange}
-            />
-          </div>
-          <div className={styles.extras}>
-            <SelectDate onChange={this.handleDateChange} />
-            <SelectList onChange={this.handleListChange} />
-            <SelectTag onChange={this.handleTagChange} />
-          </div>
-        </div>
-        <div className={styles.actions}>
-          <Button buttonType={'add'} icon={'add'} text={'Add'} />
-          <Button buttonType={'cancel'} text={'cancel'} />
-        </div>
-      </form>
+      <>
+        {this.state.editing ? (
+          <TodoEditForm
+            onSubmit={this.handleSubmit}
+            toggleEdit={this.toggleEdit}
+          />
+        ) : (
+          <Button
+            buttonType={'expand'}
+            text={'New Todo'}
+            onClick={this.toggleEdit}
+          >
+            Add Todo
+          </Button>
+        )}
+      </>
     )
   }
 }

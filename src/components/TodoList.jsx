@@ -7,48 +7,9 @@ import AddTodo from './AddTodo'
 import { updateTodoOrder } from '../actions/list-action'
 
 class TodoList extends Component {
-  /*
-  state = { currentListId: this.props.currentListId, tasks: [] }
-
-  componentDidMount() {
-    console.log('did mount', this.state)
-    this.setState((state) => ({
-      ...state,
-      tasks: initialTasks.filter((todo) => todo.listId === state.currentListId)
-    }))
-  }
-
-  componentDidUpdate(prevProps) {
-    if (this.props.currentListId !== prevProps.currentListId) {
-      this.setState((state) => ({
-        ...state,
-        tasks: initialTasks.filter(
-          (todo) => todo.listId === this.props.currentListId
-        )
-      }))
-    }
-  }
-
-  onDragEnd = (result) => {
-    // dropped outside the list
-    if (!result.destination) {
-      return
-    }
-
-    const tasks = reorder(
-      this.state.tasks,
-      result.source.index,
-      result.destination.index
-    )
-
-    this.setState({ tasks })
-    this.props.updateTodoOrder(this.state.currentListId, tasks)
-  }
-  */
-
   render() {
     const { currentListId, updateTodoOrder, currentTasks } = this.props
-    console.log('current tasks', currentTasks, this.props)
+    console.log('current tasks', currentTasks)
     const onDragEnd = (result) => {
       // dropped outside the list
       if (!result.destination) {

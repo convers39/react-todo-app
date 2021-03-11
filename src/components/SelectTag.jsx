@@ -10,8 +10,17 @@ class SelectTag extends Component {
     this.props.fetchTags()
   }
   render() {
-    const { allTags } = this.props
-    const options = allTags.map((tag) => ({ value: tag, label: tag }))
+    const options = this.props.allTags.map((tag) => ({
+      value: tag,
+      label: tag
+    }))
+    // in edit mode retrieve default tags
+    const defaultTags = this.props.default.map((tag) => ({
+      value: tag,
+      label: tag
+    }))
+    console.log('default tags', defaultTags)
+
     return (
       <>
         <CreatableSelect
@@ -19,13 +28,12 @@ class SelectTag extends Component {
           classNamePrefix='select'
           isMulti
           placeholder='Tags'
-          defaultValue={''}
+          defaultValue={defaultTags || ''}
           isClearable={true}
           isSearchable={true}
           name='tag-selector'
           options={options}
           onChange={this.props.onChange}
-          // onInputChange={this.handleInputChange}
           theme={(theme) => ({
             ...theme,
             colors: {
@@ -41,7 +49,5 @@ class SelectTag extends Component {
 }
 
 const mapDispatchToProps = { fetchTags }
-const mapStateToProps = (state) => ({
-  allTags: state.allTags
-})
+const mapStateToProps = (state) => ({ allTags: state.allTags })
 export default connect(mapStateToProps, mapDispatchToProps)(SelectTag)

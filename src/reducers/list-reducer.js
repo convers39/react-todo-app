@@ -1,20 +1,24 @@
-const UPDATE_SHOWING_LIST = 'update_showing_list'
-const UPDATE_TODO_ORDER = 'update_todo_order'
-const TOGGLE_FINISHED = 'toggle_finished'
-const ADD_NEW_TODO = 'add_new_todo'
+import * as ACTION from '../constants/list-constant'
 
 const listReducer = (state = { currentListId: null, list: [] }, action) => {
   const { type, payload } = action
   console.log('listReducer state', state, 'action', action)
   switch (type) {
-    case UPDATE_SHOWING_LIST:
+    case ACTION.UPDATE_SHOWING_LIST:
       return { currentListId: payload.newListId, list: payload.newList }
-    case UPDATE_TODO_ORDER:
+    case ACTION.UPDATE_TODO_ORDER:
       return { ...state, list: payload.newList }
-    case ADD_NEW_TODO:
-      const currentList = [...state.list].push(payload.newTodo)
+    case ACTION.ADD_NEW_TODO:
+      const currentList = [...state.list]
+      currentList.push(payload.newTodo)
       return { ...state, list: currentList }
-    case TOGGLE_FINISHED:
+    case ACTION.EDIT_TODO:
+      return { ...state, list: payload.newList }
+    case ACTION.MOVE_TODO:
+      return { ...state, list: payload.newList }
+    case ACTION.DELETE_TODO:
+      return { ...state, list: payload.newList }
+    case ACTION.TOGGLE_FINISHED:
       return { ...state, list: payload.newList }
     default:
       return state

@@ -1,6 +1,10 @@
 $red: #e74c3c;
 $yellow: #f1c40f;
+$orange: #e95c20ff;
 $green: #2ecc71;
+$blue: #2460a7ff;
+$sky: #85b3d1ff;
+$gray: #a59c94ff;
 .btn {
   box-sizing: border-box;
   appearance: none;
@@ -45,6 +49,17 @@ $green: #2ecc71;
   color: $yellow;
 }
 
+.expand {
+  padding: 0.5rem 1rem;
+  background: $orange;
+  transition: all 0.2s ease-in-out;
+  &:hover {
+    transform: scale(1.05);
+  }
+  border-color: $orange;
+  color: #fff;
+}
+
 .sort {
   margin: 0;
   padding: 0.5rem 1rem;
@@ -62,9 +77,9 @@ $green: #2ecc71;
 .add {
   margin: 0;
   padding: 0.5rem 1.5rem;
-  border-color: $green;
+  border-color: $blue;
   color: #fff;
-  box-shadow: 0 0 20px 20px $green inset, 0 0 0 0 $green;
+  box-shadow: 0 0 20px 20px $blue inset, 0 0 0 0 $blue;
   transition: all 150ms ease-in-out;
 
   &:hover {
@@ -74,15 +89,15 @@ $green: #2ecc71;
 }
 
 .create {
-  margin: 0;
+  margin: 0.4rem 0;
   padding: 0.5rem 1.5rem;
-  border-color: darkgray;
+  border-color: $gray;
   color: #fff;
-  box-shadow: 0 0 20px 20px darkgray inset, 0 0 0 0 darkgray;
+  box-shadow: 0 0 20px 20px $gray inset, 0 0 0 0 $gray;
   transition: all 150ms ease-in-out;
 
   &:hover {
-    opacity: 0.85;
+    opacity: 0.9;
     transform: scale(1.05);
   }
 }

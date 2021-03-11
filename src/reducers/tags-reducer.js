@@ -1,16 +1,11 @@
-import { getDataFromLocalStorage } from '../initialData'
-
-const ADD_NEW_TAG = 'add_new_tag'
-const FETCH_TAGS = 'fetch_tags'
-
-const initialTags = getDataFromLocalStorage('tags')
+import * as ACTION from '../constants/tags-constant'
 
 const tagsReducer = (state = [], action) => {
   const { type, payload } = action
   switch (type) {
-    case FETCH_TAGS:
+    case ACTION.FETCH_TAGS:
       return payload.allTags
-    case ADD_NEW_TAG:
+    case ACTION.ADD_NEW_TAG:
       return []
     default:
       return state

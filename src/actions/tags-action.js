@@ -1,17 +1,15 @@
-import { updateLocalStorage, getDataFromLocalStorage } from '../initialData'
-
-const ADD_NEW_TAG = 'add_new_tag'
-const FETCH_TAGS = 'fetch_tags'
+import { getDataFromLocalStorage } from '../initialData'
+import * as ACTION from '../constants/tags-constant'
 
 export const addNewTag = () => {
   return (dispatch) => {
-    dispatch({ type: ADD_NEW_TAG, payload: {} })
+    dispatch({ type: ACTION.ADD_NEW_TAG, payload: {} })
   }
 }
 
 export const fetchTags = () => {
   return (dispatch) => {
     const allTags = getDataFromLocalStorage('tags')
-    dispatch({ type: FETCH_TAGS, payload: { allTags } })
+    dispatch({ type: ACTION.FETCH_TAGS, payload: { allTags } })
   }
 }

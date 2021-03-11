@@ -1,32 +1,40 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { toggleFinished } from '../actions/list-action'
+import { toggleFinished, deleteTodo } from '../actions/list-action'
 import styles from '../styles/TodoItem.module.scss'
 
 import Button from './Button'
 import Tag from './Tag'
+import EditTodo from './EditTodo'
 
 class TodoItem extends Component {
-  state = { todo: null }
+  state = { editing: false }
 
-  componentDidMount() {
-    this.setState({ todo: this.props.todo })
+  toggleEdit = () => {
+    this.setState((state) => ({ editing: !state.editing }))
   }
 
-  handleClick = () => {
-    console.log('todo clicked')
-    const newTodo = { ...this.state.todo }
-    newTodo.finished = !newTodo.finished
-    this.setState({ todo: newTodo })
-    const todo = this.state.todo
+  handleDelete = () => {
+    const todo = { ...this.props.todo }
+    this.props.deleteTodo(todo.listId, todo.id)
+  }
+
+  handleFinished = () => {
+    const todo = { ...this.props.todo }
     this.props.toggleFinished(todo.listId, todo.id, !todo.finished)
   }
 
   render() {
-    const todo = this.state.todo
+    const todo = this.props.todo
     return (
       <div className={styles.task_item}>
-        {todo ? (
+        {this.state.editing ? (
+          <EditTodo
+            todoId={todo.id}
+            initialData={todo}
+            toggleEdit={this.toggleEdit}
+          />
+        ) : (
           <div className={styles.content}>
             <label className={styles.label} htmlFor={todo.id}>
               <input
@@ -34,7 +42,7 @@ class TodoItem extends Component {
                 className={styles.checkbox}
                 type='checkbox'
                 checked={todo.finished}
-                onChange={this.handleClick}
+                onChange={this.handleFinished}
               />
               <span className={styles.text}>{todo.task}</span>
             </label>
@@ -44,17 +52,26 @@ class TodoItem extends Component {
               ))}
             </div>
             <div className={styles.actions}>
-              <Button buttonType={'edit'} icon={'edit'} />
-              <Button buttonType={'delete'} icon={'delete'} />
+              <Button
+                buttonType={'edit'}
+                icon={'edit'}
+                onClick={this.toggleEdit}
+              />
+              <Button
+                buttonType={'delete'}
+                icon={'delete'}
+                onClick={this.handleDelete}
+              />
             </div>
           </div>
-        ) : (
-          <h3>Loading...</h3>
         )}
       </div>
     )
   }
 }
 
-const mapDispatchToProps = { toggleFinished }
-export default connect(null, mapDispatchToProps)(TodoItem)
+const mapDispatchToProps = { toggleFinished, deleteTodo }
+const mapStateToProps = (state) => ({
+  currentTasks: state.currentList.list
+})
+export default connect(mapStateToProps, mapDispatchToProps)(TodoItem)

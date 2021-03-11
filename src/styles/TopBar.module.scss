@@ -8,14 +8,17 @@
 
 .inner {
   display: flex;
+  margin: 0 1rem;
   justify-content: space-between;
-  align-items: center;
-  &__left {
-    display: flex;
-    align-items: center;
+  align-items: baseline;
+  &_left {
+    // display: flex;
+    // align-items: center;
+    padding: 1.2rem;
   }
-  &__right {
-    display: flex;
-    align-items: center;
+  &_right {
+    // display: flex;
+    // align-items: center;
+    padding: 1.2rem;
   }
 }
