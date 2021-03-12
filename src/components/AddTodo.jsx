@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { addNewTodo } from '../actions/list-action'
+import { addTodo } from '../actions/list-action'
+
 import TodoEditForm from './TodoEditForm'
 import Button from './Button'
 
@@ -9,9 +10,10 @@ class AddTodo extends Component {
 
   handleSubmit = (todoData) => {
     console.log('handle submit', todoData)
-    this.props.addNewTodo(todoData)
+    this.props.addTodo(todoData)
     this.toggleEdit()
   }
+
   toggleEdit = () => {
     this.setState(
       (state) => ({ editing: !state.editing }),
@@ -41,5 +43,5 @@ class AddTodo extends Component {
   }
 }
 
-const mapDispatchToProps = { addNewTodo }
+const mapDispatchToProps = { addTodo }
 export default connect(null, mapDispatchToProps)(AddTodo)

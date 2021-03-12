@@ -4,7 +4,7 @@ import Select from 'react-select'
 import styles from '../styles/AddTodo.module.scss'
 class SelectList extends Component {
   render() {
-    const options = this.props.allLists.map((list) => ({
+    const options = this.props.lists.map((list) => ({
       value: list.id,
       label: list.name
     }))
@@ -40,6 +40,6 @@ class SelectList extends Component {
   }
 }
 const mapStateToProps = (state) => ({
-  allLists: state.allLists
+  lists: Object.values(state.lists.items)
 })
 export default connect(mapStateToProps)(SelectList)

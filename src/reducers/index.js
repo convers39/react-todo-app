@@ -1,10 +1,12 @@
 import { combineReducers } from 'redux'
-import listReducer from './list-reducer'
-import listsReducer from './lists-reducer'
-import tagsReducer from './tags-reducer'
+import todosReducer from './todos'
+import listsReducer from './lists'
+import tagsReducer from './tags'
+import appReducer from './app'
 
 export default combineReducers({
-  currentList: listReducer,
-  allLists: listsReducer,
-  allTags: tagsReducer
+  app: appReducer,
+  todos: todosReducer,
+  lists: listsReducer,
+  tags: tagsReducer
 })

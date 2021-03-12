@@ -4,25 +4,27 @@ import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd'
 import styles from '../styles/style.module.scss'
 import TodoItem from './TodoItem'
 import AddTodo from './AddTodo'
+import TodoFilter from '../filters/todos'
 import { updateTodoOrder } from '../actions/list-action'
 
 class TodoList extends Component {
   render() {
-    const { currentListId, updateTodoOrder, currentTasks } = this.props
-    console.log('current tasks', currentTasks)
+    const { updateTodoOrder, todos } = this.props
+    console.log('current tasks', todos)
     const onDragEnd = (result) => {
       // dropped outside the list
       if (!result.destination) {
         return
       }
-      const orderedTasks = reorder(
-        currentTasks,
-        result.source.index,
-        result.destination.index
-      )
-      console.log('ordered tasks', orderedTasks)
-      updateTodoOrder(currentListId, orderedTasks)
+      const sourceIndex = result.source.index
+      const destinationIndex = result.destination.index
+      reorder(todos, sourceIndex, destinationIndex)
+
+      const sourceId = todos[sourceIndex].id
+      const destinationId = todos[destinationIndex].id
+      updateTodoOrder(sourceId, destinationId)
     }
+
     return (
       <div className={styles.list_container}>
         <DragDropContext onDragEnd={onDragEnd}>
@@ -35,8 +37,8 @@ class TodoList extends Component {
                     ref={provided.innerRef}
                     style={getListStyle(snapshot.isDraggingOver)}
                   >
-                    {currentTasks?.length ? (
-                      currentTasks.map((todo, index) => (
+                    {todos?.length ? (
+                      todos.map((todo, index) => (
                         <Draggable
                           key={todo.id}
                           draggableId={todo.id}
@@ -93,10 +95,12 @@ const reorder = (list, startIndex, endIndex) => {
   return result
 }
 
-const mapStateToProps = (state) => ({
-  currentListId: state.currentList.currentListId,
-  currentTasks: state.currentList.list
-})
+const mapStateToProps = (state) => {
+  const filter = new TodoFilter(state, 'todos')
+  const { currentListId } = state.app || null
+
+  return { todos: filter.getItemsByList(currentListId), currentListId }
+}
 const mapDispatchToProps = { updateTodoOrder }
 const TodoListContainer = connect(mapStateToProps, mapDispatchToProps)(TodoList)
 

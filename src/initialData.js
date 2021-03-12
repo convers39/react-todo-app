@@ -1,113 +1,76 @@
-const initialLists = [
-  {
-    id: 1,
-    name: 'list 1',
-    tasks: [
-      {
-        listId: 1,
-        created: '2021-3-1',
-        date: '2021-03-10',
-        deleted: false,
-        finished: true,
-        id: 'todo_1614592246649',
-        tags: ['js', 'react'],
-        task: 'learn mobx'
-      },
-      {
-        listId: 1,
-        created: '2021-3-1',
-        date: '2021-03-03',
-        deleted: false,
-        finished: false,
-        id: 'todo_1614591103488',
-        tags: ['react', 'js'],
-        task: 'learn redux'
-      },
-      {
-        listId: 1,
-        created: '2021-03-02',
-        date: '2021-03-04',
-        deleted: false,
-        finished: false,
-        id: 'todo_1614614664906',
-        tags: ['Python'],
-        task: 'learn Python'
-      }
-    ]
-  },
-  {
-    id: 2,
-    name: 'list 2',
-    tasks: [
-      {
-        listId: 2,
-        created: '2021-3-3',
-        date: '2021-03-10',
-        deleted: false,
-        finished: true,
-        id: 'todo_1614592246648',
-        tags: ['js', 'node'],
-        task: 'learn node.js'
-      },
-      {
-        listId: 2,
-        created: '2021-3-3',
-        date: '2021-03-13',
-        deleted: false,
-        finished: false,
-        id: 'todo_1614591103468',
-        tags: ['django', 'python'],
-        task: 'learn Django'
-      },
-      {
-        listId: 2,
-        created: '2021-03-03',
-        date: '2021-03-04',
-        deleted: false,
-        finished: false,
-        id: 'todo_1614614664916',
-        tags: ['Python', 'Flask'],
-        task: 'learn Flask'
-      }
-    ]
-  },
-  {
-    id: 3,
-    name: 'list 3',
-    tasks: [
-      {
-        listId: 3,
-        created: '2021-3-4',
-        date: '2021-03-10',
-        deleted: false,
-        finished: true,
-        id: 'todo_1614592246644',
-        tags: ['js', 'vue'],
-        task: 'learn vue'
-      },
-      {
-        listId: 3,
-        created: '2021-3-4',
-        date: '2021-03-03',
-        deleted: false,
-        finished: false,
-        id: 'todo_1614591103478',
-        tags: ['react', 'js'],
-        task: 'learn Next.js'
-      },
-      {
-        listId: 3,
-        created: '2021-03-04',
-        date: '2021-03-04',
-        deleted: false,
-        finished: false,
-        id: 'todo_1614614665906',
-        tags: ['js', 'express', 'node'],
-        task: 'learn express'
-      }
-    ]
+const todos = {
+  ids: [
+    'todo_1614592246649',
+    'todo_1614591103488',
+    'todo_1614614664906',
+    'todo_1614592246648',
+    'todo_1614591103468',
+    'todo_1614614664916',
+    'todo_1614592246644',
+    'todo_1614591103478',
+    'todo_1614614665906'
+  ],
+  items: {}
+}
+
+const lists = {
+  ids: ['list_1614591103488', 'list_1614591103588', 'list_1614591103584'],
+  items: {
+    list_1614591103488: {
+      id: 'list_1614591103488',
+      name: 'list 1',
+      created: '2021-03-02'
+    },
+    list_1614591103588: {
+      id: 'list_1614591103588',
+      name: 'list 2',
+      created: '2021-03-04'
+    },
+    list_1614591103584: {
+      id: 'list_1614591103584',
+      name: 'list 3',
+      created: '2021-03-06'
+    }
   }
-]
+}
+
+const tags = {
+  ids: [
+    'tag_1614521103584',
+    'tag_1614521103580',
+    'tag_1614521104584',
+    'tag_1614521103582',
+    'tag_1614521113584'
+  ],
+  items: {
+    tag_1614521103584: {
+      id: 'tag_1614521103584',
+      name: 'python',
+      created: '2021-03-06'
+    },
+    tag_1614521103580: {
+      id: 'tag_1614521103580',
+      name: 'react',
+      created: '2021-03-06'
+    },
+    tag_1614521104584: {
+      id: 'tag_1614521104584',
+      name: 'js',
+      created: '2021-03-07'
+    },
+    tag_1614521103582: {
+      id: 'tag_1614521103582',
+      name: 'node',
+      created: '2021-03-08'
+    },
+    tag_1614521113584: {
+      id: 'tag_1614521113584',
+      name: 'vue',
+      created: '2021-03-10'
+    }
+  }
+}
+
 const initialTasks = [
   {
     listId: 1,
@@ -211,22 +174,3 @@ const initialTags = [
   'vue',
   'express'
 ]
-
-// localStorage.setItem('lists', JSON.stringify(initialLists))
-// localStorage.setItem('tasks', JSON.stringify(initialTasks))
-// localStorage.setItem('tags', JSON.stringify(initialTags))
-
-// initialLists.forEach((list) => {
-//   localStorage.setItem(list.id, JSON.stringify(list.tasks))
-// })
-
-export const getDataFromLocalStorage = (key) => {
-  const data = localStorage.getItem(key)
-  if (!data) {
-    return []
-  }
-  return JSON.parse(data)
-}
-
-export const updateLocalStorage = (key, value) =>
-  localStorage.setItem(key, JSON.stringify(value))

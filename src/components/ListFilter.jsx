@@ -9,7 +9,7 @@ class ListFilter extends Component {
     this.props.fetchLists()
   }
   render() {
-    const lists = this.props.allLists
+    const lists = this.props.lists
     return (
       <div className={styles.list_container}>
         <ul className={styles.list_filter}>
@@ -23,7 +23,7 @@ class ListFilter extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  allLists: state.allLists
+  lists: state.lists.items
 })
 const mapDispatchToProps = { fetchLists }
 

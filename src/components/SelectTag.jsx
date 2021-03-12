@@ -3,14 +3,14 @@ import { connect } from 'react-redux'
 import CreatableSelect from 'react-select/creatable'
 import styles from '../styles/AddTodo.module.scss'
 
-import { fetchTags } from '../actions/tags-action'
+import { fetchTags } from '../actions/tags'
 
 class SelectTag extends Component {
   componentDidMount() {
     this.props.fetchTags()
   }
   render() {
-    const options = this.props.allTags.map((tag) => ({
+    const options = this.props.tags.map((tag) => ({
       value: tag,
       label: tag
     }))
@@ -49,5 +49,5 @@ class SelectTag extends Component {
 }
 
 const mapDispatchToProps = { fetchTags }
-const mapStateToProps = (state) => ({ allTags: state.allTags })
+const mapStateToProps = (state) => ({ tags: Object.values(state.tags.items) })
 export default connect(mapStateToProps, mapDispatchToProps)(SelectTag)

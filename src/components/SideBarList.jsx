@@ -1,20 +1,12 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import styles from '../styles/SideBar.module.scss'
-import { updateCurrentList } from '../actions/list-action'
 import { removeList } from '../actions/lists-action'
+import { selectList } from '../actions/app'
 
 class SideBarList extends Component {
-  handleClick = (e) => {
-    // dispatch method to reducer and update current showing list id
-    this.props.updateCurrentList(+e.target.id)
-  }
-
-  handleRemove = (listId) => {
-    this.props.removeList(listId)
-  }
   render() {
-    const { list } = this.props
+    const { list, removeList, selectList } = this.props
     return (
       <li
         className={`${
@@ -24,13 +16,13 @@ class SideBarList extends Component {
         <div
           id={list.id}
           className={`${styles.list_item}`}
-          onClick={this.handleClick}
+          onClick={() => selectList(list.id)}
         >
           {list.name}
         </div>
         <button
           className={styles.list_remove_btn}
-          onClick={() => this.handleRemove(list.id)}
+          onClick={() => removeList(list.id)}
         >
           &times;
         </button>
@@ -40,9 +32,9 @@ class SideBarList extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  currentListId: state.currentList.currentListId
+  currentListId: state.app.currentListId
 })
-const mapDispatchToProps = { updateCurrentList, removeList }
+const mapDispatchToProps = { selectList, removeList }
 const SideBarListContainer = connect(
   mapStateToProps,
   mapDispatchToProps

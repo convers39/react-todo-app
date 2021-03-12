@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { toggleFinished, deleteTodo } from '../actions/list-action'
+import { toggleFinished, deleteTodo } from '../actions/todos'
+import { updateEditingTodo } from '../actions/app'
 import styles from '../styles/TodoItem.module.scss'
 
 import Button from './Button'
@@ -8,31 +9,24 @@ import Tag from './Tag'
 import EditTodo from './EditTodo'
 
 class TodoItem extends Component {
-  state = { editing: false }
-
-  toggleEdit = () => {
-    this.setState((state) => ({ editing: !state.editing }))
+  handleClick = () => {
+    this.props.deleteTodo(this.props.todo.id)
   }
-
-  handleDelete = () => {
-    const todo = { ...this.props.todo }
-    this.props.deleteTodo(todo.listId, todo.id)
-  }
-
-  handleFinished = () => {
-    const todo = { ...this.props.todo }
-    this.props.toggleFinished(todo.listId, todo.id, !todo.finished)
-  }
-
   render() {
-    const todo = this.props.todo
+    const {
+      todo,
+      toggleFinished,
+      editingTodoId,
+      updateEditingTodo
+    } = this.props
+
     return (
       <div className={styles.task_item}>
-        {this.state.editing ? (
+        {editingTodoId === todo.id ? (
           <EditTodo
             todoId={todo.id}
             initialData={todo}
-            toggleEdit={this.toggleEdit}
+            toggleEdit={() => updateEditingTodo(todo.id)}
           />
         ) : (
           <div className={styles.content}>
@@ -42,7 +36,7 @@ class TodoItem extends Component {
                 className={styles.checkbox}
                 type='checkbox'
                 checked={todo.finished}
-                onChange={this.handleFinished}
+                onChange={() => toggleFinished(todo.id)}
               />
               <span className={styles.text}>{todo.task}</span>
             </label>
@@ -70,8 +64,8 @@ class TodoItem extends Component {
   }
 }
 
-const mapDispatchToProps = { toggleFinished, deleteTodo }
+const mapDispatchToProps = { toggleFinished, deleteTodo, updateEditingTodo }
 const mapStateToProps = (state) => ({
-  currentTasks: state.currentList.list
+  editingTodoId: state.app.editingTodo
 })
 export default connect(mapStateToProps, mapDispatchToProps)(TodoItem)
