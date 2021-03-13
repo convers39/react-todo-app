@@ -21,12 +21,12 @@ export const addList = (name) => {
   }
 }
 
-export const removeList = (id) => {
+export const deleteList = (id) => {
   return (dispatch) => {
     const { ids, items } = db.get('lists')
     ids.filter((listId) => listId !== id)
     delete items[id]
     db.set('lists', { ids, items })
-    dispatch({ type: ACTION.REMOVE_LIST, payload: { id } })
+    dispatch({ type: ACTION.DELETE_LIST, payload: { id } })
   }
 }

@@ -3,11 +3,22 @@ import { connect } from 'react-redux'
 import CreatableSelect from 'react-select/creatable'
 import styles from '../styles/AddTodo.module.scss'
 
-import { fetchTags } from '../actions/tags'
+import { fetchTags, addTag } from '../actions/tags'
 
 class SelectTag extends Component {
   componentDidMount() {
     this.props.fetchTags()
+  }
+
+  handleChange = (options) => {
+    const tags = options.map((obj) => obj.label.toLowerCase())
+    // check if new tag is created and fire add tag action
+    const currentTags = this.props.tags.map((tag) => tag.name)
+    const newTags = tags.filter((tag) => !currentTags.includes(tag))
+
+    newTags.length && newTags.map((tag) => this.props.addTag(tag))
+
+    this.props.onChange(tags)
   }
 
   render() {
@@ -22,7 +33,7 @@ class SelectTag extends Component {
       defaultTags &&
       defaultTags.map((tagName) => {
         const [tagObj] = tags.filter((tag) => tag.name === tagName)
-        return { value: tagObj.id, label: tagObj.name }
+        return tagObj && { value: tagObj.id, label: tagObj.name }
       })
 
     return (
@@ -37,7 +48,7 @@ class SelectTag extends Component {
           isSearchable={true}
           name='tag-selector'
           options={options}
-          onChange={this.props.onChange}
+          onChange={this.handleChange}
           theme={(theme) => ({
             ...theme,
             colors: {
@@ -52,6 +63,6 @@ class SelectTag extends Component {
   }
 }
 
-const mapDispatchToProps = { fetchTags }
+const mapDispatchToProps = { fetchTags, addTag }
 const mapStateToProps = (state) => ({ tags: Object.values(state.tags.items) })
 export default connect(mapStateToProps, mapDispatchToProps)(SelectTag)

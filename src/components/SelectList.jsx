@@ -12,7 +12,6 @@ class SelectList extends Component {
     // in edit mode retrieve default list
     const defaultIndex =
       defaultList && lists.findIndex((list) => list.id === defaultList)
-    console.log('default list id', lists, defaultIndex)
     // const defaultValue =
     //   defaultList &&
     //   lists

@@ -1,12 +1,12 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import styles from '../styles/SideBar.module.scss'
-import { removeList } from '../actions/lists'
+import { deleteList } from '../actions/lists'
 import { selectList } from '../actions/app'
 
 class SideBarList extends Component {
   render() {
-    const { list, removeList, selectList } = this.props
+    const { list, deleteList, selectList } = this.props
     return (
       <li
         className={`${
@@ -22,7 +22,7 @@ class SideBarList extends Component {
         </div>
         <button
           className={styles.list_remove_btn}
-          onClick={() => removeList(list.id)}
+          onClick={() => deleteList(list.id)}
         >
           &times;
         </button>
@@ -34,7 +34,7 @@ class SideBarList extends Component {
 const mapStateToProps = (state) => ({
   currentListId: state.app.currentListId
 })
-const mapDispatchToProps = { selectList, removeList }
+const mapDispatchToProps = { selectList, deleteList }
 const SideBarListContainer = connect(
   mapStateToProps,
   mapDispatchToProps

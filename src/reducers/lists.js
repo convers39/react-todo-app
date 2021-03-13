@@ -12,7 +12,7 @@ const listsReducer = (state = initialState, action) => {
       return payload.lists
 
     case ACTION.ADD_LIST: {
-      const { id, name } = action
+      const { id, name } = payload
       return {
         ...state,
         ids: [...state.ids, id],
@@ -21,13 +21,13 @@ const listsReducer = (state = initialState, action) => {
           [id]: {
             id,
             name,
-            created: Date.now()
+            created: new Date().toLocaleDateString('en-CA')
           }
         }
       }
     }
     // TODO: need an action in todos reducer to remove related todos
-    case ACTION.REMOVE_LIST: {
+    case ACTION.DELETE_LIST: {
       const { id } = payload
       const items = { ...state.items }
       delete items[id]

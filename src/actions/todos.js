@@ -46,7 +46,7 @@ export const deleteTodo = (todoId) => {
 export const updateTodo = (todoId, updatedTodo) => {
   return (dispatch) => {
     const { ids, items } = db.get('todos')
-    items[todoId] = updatedTodo
+    items[todoId] = { ...items[todoId], ...updatedTodo }
     db.set('todos', { ids, items })
 
     dispatch({ type: ACTION.UPDATE_TODO, payload: { todoId, updatedTodo } })

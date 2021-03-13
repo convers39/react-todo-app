@@ -1,13 +1,25 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { updateSelectedTags } from '../actions/app'
 import styles from '../styles/style.module.scss'
 
-export default class Tag extends Component {
+class Tag extends Component {
   render() {
-    const { tagText } = this.props
+    const { tagText, updateSelectedTags, selectedTags } = this.props
     return (
-      <div className={styles.tag_container}>
+      <div
+        className={`${
+          selectedTags.includes(tagText) ? styles.tag_selected : ''
+        } ${styles.tag_container}`}
+        onClick={() => updateSelectedTags(tagText)}
+      >
         <span>#{tagText}</span>
       </div>
     )
   }
 }
+
+const mapStateToProps = (state) => ({ selectedTags: state.app.selectedTags })
+const mapDispatchToProps = { updateSelectedTags }
+
+export default connect(mapStateToProps, mapDispatchToProps)(Tag)

@@ -6,9 +6,10 @@ import { updateEditingTodo } from '../actions/app'
 import TodoEditForm from './TodoEditForm'
 import Button from './Button'
 
+import styles from '../styles/AddTodo.module.scss'
+
 class AddTodo extends Component {
   handleSubmit = (todoData) => {
-    console.log('handle submit', todoData)
     this.props.addTodo(todoData)
     this.props.updateEditingTodo(null)
   }
@@ -18,10 +19,12 @@ class AddTodo extends Component {
     return (
       <>
         {editingTodoId === 'newTodo' ? (
-          <TodoEditForm
-            onSubmit={this.handleSubmit}
-            toggleEdit={() => updateEditingTodo(null)}
-          />
+          <div className={styles.add_todo_container}>
+            <TodoEditForm
+              onSubmit={this.handleSubmit}
+              toggleEdit={() => updateEditingTodo(null)}
+            />
+          </div>
         ) : (
           <Button
             buttonType={'expand'}

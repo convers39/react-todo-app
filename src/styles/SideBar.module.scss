@@ -156,3 +156,18 @@
     outline: darken(lightgrey, 20%);
   }
 }
+
+////////////////////////////////
+// tags
+
+.tag_filter_container {
+}
+
+.tag_filter_item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  // & + div {
+  //   width: 5rem;
+  // }
+}

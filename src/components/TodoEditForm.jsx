@@ -17,7 +17,7 @@ export default class TodoEditForm extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault()
-    console.log('Todo Form Submit', this.state)
+    // console.log('Todo Form Submit', this.state)
     this.props.onSubmit(this.state)
   }
 
@@ -32,8 +32,7 @@ export default class TodoEditForm extends Component {
       this.setState((state) => ({ ...state, listId: null }))
     }
   }
-  handleTagChange = (options) => {
-    const tags = options.map((obj) => obj.label)
+  handleTagChange = (tags) => {
     this.setState((state) => ({ ...state, tags }))
   }
   handleDateChange = (date) => {

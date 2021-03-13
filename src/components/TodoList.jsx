@@ -14,7 +14,6 @@ class TodoList extends Component {
 
   render() {
     const { updateTodoOrder, todos } = this.props
-    console.log('todo list showing', todos)
     const onDragEnd = (result) => {
       // dropped outside the list
       if (!result.destination) {
@@ -101,9 +100,13 @@ const reorder = (list, startIndex, endIndex) => {
 
 const mapStateToProps = (state) => {
   const filter = new TodoFilter(state, 'todos')
-  const { currentListId } = state.app || null
-  console.log('filter todos', filter.getItemsByList(currentListId))
-  return { todos: filter.getItemsByList(currentListId), currentListId }
+  const { currentListId, selectedTags } = state.app || null
+  let todos = filter.getItemsByList(currentListId)
+  if (selectedTags.length) {
+    const checkSubArray = (arr, sub) => sub.every((v) => arr.includes(v))
+    todos = todos.filter((todo) => checkSubArray(todo.tags, selectedTags))
+  }
+  return { todos, currentListId }
 }
 const mapDispatchToProps = { updateTodoOrder, fetchTodos }
 const TodoListContainer = connect(mapStateToProps, mapDispatchToProps)(TodoList)

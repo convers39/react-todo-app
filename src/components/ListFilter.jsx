@@ -10,7 +10,7 @@ class ListFilter extends Component {
   }
   render() {
     const lists = this.props.lists
-    console.log('lists', lists)
+    console.log('lists filter', lists)
     return (
       <div className={styles.list_container}>
         {lists ? (

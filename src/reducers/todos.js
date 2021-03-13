@@ -2,7 +2,7 @@ import * as ACTION from '../constants/todos'
 
 const todosReducer = (state = { ids: [], items: {} }, action) => {
   const { type, payload } = action
-  console.log('todos Reducer state', state, 'action', action)
+  // console.log('todos Reducer state', state, 'action', action)
 
   switch (type) {
     case ACTION.FETCH_TODOS: {
@@ -28,7 +28,7 @@ const todosReducer = (state = { ids: [], items: {} }, action) => {
         ...state,
         items: {
           ...state.items,
-          [todoId]: updatedTodo
+          [todoId]: { ...state.items[todoId], ...updatedTodo }
         }
       }
     }

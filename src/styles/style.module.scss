@@ -194,10 +194,11 @@
 }
 
 .tag_container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  // display: flex;
+  // justify-content: center;
+  // align-items: center;
   font-size: 1.2rem;
+  padding: 0.3rem 0.2rem;
   margin: 0.3rem;
   border: 0.15rem solid royalblue;
   color: royalblue;
@@ -214,6 +215,10 @@
   span {
     padding: 0.3rem;
   }
+}
+.tag_selected {
+  box-shadow: 0 0 40px 40px royalblue inset;
+  color: #fff;
 }
 
 ////////////////////////////////
