@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { toggleFinished, deleteTodo } from '../actions/todos'
-import { updateEditingTodo } from '../actions/app'
+import { toggleFinished, deleteTodo } from '../store/actions/todos'
+import { updateEditingTodo } from '../store/actions/app'
 import styles from '../styles/TodoItem.module.scss'
 
 import Button from './Button'

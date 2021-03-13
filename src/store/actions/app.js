@@ -15,3 +15,7 @@ export const updateSelectedTags = (tag) => {
 export const clearTagsFilter = () => {
   return { type: ACTION.CLEAR_TAGS_FILTER }
 }
+
+export const clearListFilter = () => {
+  return { type: ACTION.CLEAR_LIST_FILTER }
+}

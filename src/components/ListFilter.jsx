@@ -2,7 +2,8 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import styles from '../styles/SideBar.module.scss'
 import SideBarList from './SideBarList'
-import { fetchLists } from '../actions/lists'
+import FilterClear from './FilterClear'
+import { fetchLists } from '../store/actions/lists'
 
 class ListFilter extends Component {
   componentDidMount() {
@@ -13,6 +14,7 @@ class ListFilter extends Component {
     console.log('lists filter', lists)
     return (
       <div className={styles.list_container}>
+        <FilterClear clearType={'lists'} />
         {lists ? (
           <ul className={styles.list_filter}>
             {lists.map((list) => (

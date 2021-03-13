@@ -194,9 +194,6 @@
 }
 
 .tag_container {
-  // display: flex;
-  // justify-content: center;
-  // align-items: center;
   font-size: 1.2rem;
   padding: 0.3rem 0.2rem;
   margin: 0.3rem;
@@ -260,7 +257,7 @@
 
     .extras {
       display: flex;
-      justify-content: start;
+      justify-content: flex-start;
       align-items: center;
       padding-bottom: 1rem;
 
@@ -297,7 +294,7 @@
   .actions {
     margin-top: 1rem;
     display: flex;
-    justify-content: start;
+    justify-content: flex-start;
   }
 }
 
@@ -399,4 +396,13 @@
       align-items: center;
     }
   }
+}
+
+////////////////////////////////
+// Filter Clear
+.filter_clear_container {
+  margin: 0.5rem auto;
+  padding: 0.5rem;
+  display: flex;
+  justify-content: center;
 }

@@ -1,4 +1,4 @@
-import db from '../utils/index'
+import db from '../../utils/index'
 import * as ACTION from '../constants/tags'
 
 export const addTag = (name) => {

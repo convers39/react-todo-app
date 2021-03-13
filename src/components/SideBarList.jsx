@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import styles from '../styles/SideBar.module.scss'
-import { deleteList } from '../actions/lists'
-import { selectList } from '../actions/app'
+import { deleteList } from '../store/actions/lists'
+import { selectList } from '../store/actions/app'
 
 class SideBarList extends Component {
   render() {

@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { addTodo } from '../actions/todos'
-import { updateEditingTodo } from '../actions/app'
+import { addTodo } from '../store/actions/todos'
+import { updateEditingTodo } from '../store/actions/app'
 
 import TodoEditForm from './TodoEditForm'
 import Button from './Button'

@@ -21,17 +21,23 @@
   .list_filter {
     .list_wrapper {
       display: flex;
+      padding-bottom: 0.4rem;
       border-bottom: 1px solid lightgray;
       border-radius: 0.5rem;
       // justify-content: space-between;
       align-items: center;
+      transition: all 0.2s ease;
 
       &:hover {
         cursor: pointer;
         background-color: lighten(gray, 20%);
       }
+      &:hover .list_remove_btn {
+        display: block;
+      }
     }
     .list_remove_btn {
+      display: none;
       margin-right: 0.5rem;
       margin-left: auto;
       font-size: 1.8rem;

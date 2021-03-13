@@ -32,6 +32,9 @@ export default class Button extends Component {
       case 'cancel':
         className = styles.cancel
         break
+      case 'all':
+        className = styles.all_todo
+        break
       default:
         break
     }

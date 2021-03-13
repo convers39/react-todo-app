@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { updateSelectedTags } from '../actions/app'
+import { updateSelectedTags } from '../store/actions/app'
 import styles from '../styles/style.module.scss'
 
 class Tag extends Component {

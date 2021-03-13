@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { fetchTags, deleteTag } from '../actions/tags'
+import { fetchTags, deleteTag } from '../store/actions/tags'
 import Tag from './Tag'
 import FilterWrapper from './FilterWrapper'
 import Button from './Button'

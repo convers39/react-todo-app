@@ -5,7 +5,7 @@ import styles from '../styles/SideBar.module.scss'
 import Button from './Button'
 import FilterWrapper from './FilterWrapper'
 
-import { addList } from '../actions/lists'
+import { addList } from '../store/actions/lists'
 
 class CreateList extends Component {
   handleSubmit = (e) => {

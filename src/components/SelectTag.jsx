@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import CreatableSelect from 'react-select/creatable'
 import styles from '../styles/AddTodo.module.scss'
 
-import { fetchTags, addTag } from '../actions/tags'
+import { fetchTags, addTag } from '../store/actions/tags'
 
 class SelectTag extends Component {
   componentDidMount() {
@@ -28,12 +28,12 @@ class SelectTag extends Component {
       label: tag.name
     }))
 
-    // in edit mode retrieve default tags
+    // in edit mode retrieve default tags, defaultTags only contains tagName
     defaultTags =
       defaultTags &&
       defaultTags.map((tagName) => {
         const [tagObj] = tags.filter((tag) => tag.name === tagName)
-        return tagObj && { value: tagObj.id, label: tagObj.name }
+        return { value: tagObj.id, label: tagObj.name }
       })
 
     return (
@@ -43,7 +43,7 @@ class SelectTag extends Component {
           classNamePrefix='select'
           isMulti
           placeholder='Tags'
-          defaultValue={defaultTags || ''}
+          value={defaultTags || ''}
           isClearable={true}
           isSearchable={true}
           name='tag-selector'

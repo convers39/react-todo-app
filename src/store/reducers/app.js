@@ -36,6 +36,10 @@ const reducer = (state = initialState, action) => {
     case ACTION.CLEAR_TAGS_FILTER: {
       return { ...state, selectedTags: [] }
     }
+
+    case ACTION.CLEAR_LIST_FILTER: {
+      return { ...state, currentListId: null }
+    }
     default:
       return state
   }

@@ -12,11 +12,6 @@ class SelectList extends Component {
     // in edit mode retrieve default list
     const defaultIndex =
       defaultList && lists.findIndex((list) => list.id === defaultList)
-    // const defaultValue =
-    //   defaultList &&
-    //   lists
-    //     .filter((list) => list.id === defaultList)
-    //     .map((list) => ({ value: list.id, label: list.name }))[0]
 
     return (
       <>
@@ -24,7 +19,7 @@ class SelectList extends Component {
           className={styles.list_selector}
           classNamePrefix='select'
           placeholder='List'
-          defaultValue={options[defaultIndex] || ''}
+          value={options[defaultIndex] || ''}
           isClearable={true}
           isSearchable={true}
           onChange={this.props.onChange}

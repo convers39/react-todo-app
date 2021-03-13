@@ -4,8 +4,8 @@ import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd'
 import styles from '../styles/style.module.scss'
 import TodoItem from './TodoItem'
 import AddTodo from './AddTodo'
-import TodoFilter from '../filters/todos'
-import { updateTodoOrder, fetchTodos } from '../actions/todos'
+import TodoFilter from '../store/filters/todos'
+import { updateTodoOrder, fetchTodos } from '../store/actions/todos'
 
 class TodoList extends Component {
   componentDidMount() {

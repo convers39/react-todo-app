@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import TodoEditForm from './TodoEditForm'
-import { updateTodo } from '../actions/todos'
-import { updateEditingTodo } from '../actions/app'
+import { updateTodo } from '../store/actions/todos'
+import { updateEditingTodo } from '../store/actions/app'
 
 class EditTodo extends Component {
   handleSubmit = (todoData) => {
