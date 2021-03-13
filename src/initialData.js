@@ -69,7 +69,7 @@ const todos = {
       deleted: false,
       finished: false,
       id: 'todo_1614614664916',
-      tags: ['Python', 'Flask'],
+      tags: ['python', 'flask'],
       task: 'learn Flask'
     },
     todo_1614592246644: {
@@ -142,7 +142,10 @@ const tags = {
     'tag_1614521103580',
     'tag_1614521104584',
     'tag_1614521103582',
-    'tag_1614521113584'
+    'tag_1614521113584',
+    'tag_1614521116584',
+    'tag_1614521213584',
+    'tag_1614521117584'
   ],
   items: {
     tag_1614521103584: {
@@ -168,6 +171,21 @@ const tags = {
     tag_1614521113584: {
       id: 'tag_1614521113584',
       name: 'vue',
+      created: '2021-03-10'
+    },
+    tag_1614521116584: {
+      id: 'tag_1614521116584',
+      name: 'flask',
+      created: '2021-03-12'
+    },
+    tag_1614521213584: {
+      id: 'tag_1614521213584',
+      name: 'express',
+      created: '2021-03-11'
+    },
+    tag_1614521117584: {
+      id: 'tag_1614521117584',
+      name: 'django',
       created: '2021-03-10'
     }
   }

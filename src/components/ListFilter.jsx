@@ -11,7 +11,7 @@ class ListFilter extends Component {
   }
   render() {
     const lists = this.props.lists
-    console.log('lists filter', lists)
+    // console.log('lists filter', lists)
     return (
       <div className={styles.list_container}>
         <FilterClear clearType={'lists'} />

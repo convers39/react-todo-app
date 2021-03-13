@@ -16,11 +16,12 @@ class EditTodo extends Component {
       <TodoEditForm
         initialData={this.props.initialData}
         onSubmit={this.handleSubmit}
-        toggleEdit={this.props.toggleEdit}
+        toggleEdit={() => this.props.updateEditingTodo(null)}
       />
     )
   }
 }
 
 const mapDispatchToProps = { updateTodo, updateEditingTodo }
+
 export default connect(null, mapDispatchToProps)(EditTodo)

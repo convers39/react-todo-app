@@ -19,7 +19,7 @@ class TagFilter extends Component {
           <ul className='tag-filter'>
             {tags.map((tag) => (
               <li key={tag.id} className={styles.tag_filter_item}>
-                <Tag tagText={tag.name} />
+                <Tag tagName={tag.name} />
                 <Button
                   buttonType={'delete'}
                   icon={'delete'}

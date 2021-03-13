@@ -12,12 +12,11 @@ class SelectTag extends Component {
 
   handleChange = (options) => {
     const tags = options.map((obj) => obj.label.toLowerCase())
-    // check if new tag is created and fire add tag action
+    // check if new tag is created, then fire add tag action
     const currentTags = this.props.tags.map((tag) => tag.name)
     const newTags = tags.filter((tag) => !currentTags.includes(tag))
-
     newTags.length && newTags.map((tag) => this.props.addTag(tag))
-
+    // pass tag list to edit form
     this.props.onChange(tags)
   }
 
