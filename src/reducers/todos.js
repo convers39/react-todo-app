@@ -1,10 +1,14 @@
-import * as ACTION from '../constants/list'
+import * as ACTION from '../constants/todos'
 
 const todosReducer = (state = { ids: [], items: {} }, action) => {
   const { type, payload } = action
-  console.log('todosReducer state', state, 'action', action)
+  console.log('todos Reducer state', state, 'action', action)
 
   switch (type) {
+    case ACTION.FETCH_TODOS: {
+      return payload.todos
+    }
+
     case ACTION.REORDER_TODO: {
       const { ids } = payload
       return { ...state, ids }

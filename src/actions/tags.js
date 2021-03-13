@@ -6,7 +6,7 @@ export const addTag = (name) => ({
   payload: { name }
 })
 
-export const removeTag = (id) => ({
+export const deleteTag = (id) => ({
   type: ACTION.DELETE_TAG,
   payload: { id }
 })

@@ -9,14 +9,12 @@ import Tag from './Tag'
 import EditTodo from './EditTodo'
 
 class TodoItem extends Component {
-  handleClick = () => {
-    this.props.deleteTodo(this.props.todo.id)
-  }
   render() {
     const {
       todo,
       toggleFinished,
       editingTodoId,
+      deleteTodo,
       updateEditingTodo
     } = this.props
 
@@ -26,7 +24,7 @@ class TodoItem extends Component {
           <EditTodo
             todoId={todo.id}
             initialData={todo}
-            toggleEdit={() => updateEditingTodo(todo.id)}
+            toggleEdit={() => updateEditingTodo(null)}
           />
         ) : (
           <div className={styles.content}>
@@ -49,12 +47,12 @@ class TodoItem extends Component {
               <Button
                 buttonType={'edit'}
                 icon={'edit'}
-                onClick={this.toggleEdit}
+                onClick={() => updateEditingTodo(todo.id)}
               />
               <Button
                 buttonType={'delete'}
                 icon={'delete'}
-                onClick={this.handleDelete}
+                onClick={() => deleteTodo(todo.id)}
               />
             </div>
           </div>
@@ -66,6 +64,6 @@ class TodoItem extends Component {
 
 const mapDispatchToProps = { toggleFinished, deleteTodo, updateEditingTodo }
 const mapStateToProps = (state) => ({
-  editingTodoId: state.app.editingTodo
+  editingTodoId: state.app.editingTodoId
 })
 export default connect(mapStateToProps, mapDispatchToProps)(TodoItem)

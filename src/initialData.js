@@ -8,9 +8,111 @@ const todos = {
     'todo_1614614664916',
     'todo_1614592246644',
     'todo_1614591103478',
-    'todo_1614614665906'
+    'todo_1614614665906',
+    'todo_1615605394824'
   ],
-  items: {}
+  items: {
+    todo_1614592246649: {
+      listId: 'list_1614591103488',
+      created: '2021-3-1',
+      date: '2021-03-10',
+      deleted: false,
+      finished: true,
+      id: 'todo_1614592246649',
+      tags: ['js', 'react'],
+      task: 'learn mobx'
+    },
+    todo_1614591103488: {
+      listId: 'list_1614591103488',
+      created: '2021-3-1',
+      date: '2021-03-03',
+      deleted: false,
+      finished: false,
+      id: 'todo_1614591103488',
+      tags: ['react', 'js'],
+      task: 'learn redux'
+    },
+    todo_1614614664906: {
+      listId: 'list_1614591103488',
+      created: '2021-03-02',
+      date: '2021-03-04',
+      deleted: false,
+      finished: false,
+      id: 'todo_1614614664906',
+      tags: ['Python'],
+      task: 'learn Python'
+    },
+    todo_1614592246648: {
+      listId: 'list_1614591103588',
+      created: '2021-3-3',
+      date: '2021-03-10',
+      deleted: false,
+      finished: true,
+      id: 'todo_1614592246648',
+      tags: ['js', 'node'],
+      task: 'learn node.js'
+    },
+    todo_1614591103468: {
+      listId: 'list_1614591103588',
+      created: '2021-3-3',
+      date: '2021-03-13',
+      deleted: false,
+      finished: false,
+      id: 'todo_1614591103468',
+      tags: ['django', 'python'],
+      task: 'learn Django'
+    },
+    todo_1614614664916: {
+      listId: 'list_1614591103588',
+      created: '2021-03-03',
+      date: '2021-03-04',
+      deleted: false,
+      finished: false,
+      id: 'todo_1614614664916',
+      tags: ['Python', 'Flask'],
+      task: 'learn Flask'
+    },
+    todo_1614592246644: {
+      listId: 'list_1614591103584',
+      created: '2021-3-4',
+      date: '2021-03-10',
+      deleted: false,
+      finished: true,
+      id: 'todo_1614592246644',
+      tags: ['js', 'vue'],
+      task: 'learn vue'
+    },
+    todo_1614591103478: {
+      listId: 'list_1614591103584',
+      created: '2021-3-4',
+      date: '2021-03-03',
+      deleted: false,
+      finished: false,
+      id: 'todo_1614591103478',
+      tags: ['react', 'js'],
+      task: 'learn Next.js'
+    },
+    todo_1614614665906: {
+      id: 'todo_1614614665906',
+      task: 'learn express',
+      listId: 'list_1614591103584',
+      tags: ['js', 'express', 'node'],
+      date: '2021-03-04',
+      deleted: false,
+      finished: false,
+      created: '2021-03-04'
+    },
+    todo_1615605394824: {
+      id: 'todo_1615605394824',
+      task: 'learn python again',
+      listId: 'list_1614591103488',
+      tags: ['python'],
+      date: '2021-03-15',
+      finished: false,
+      deleted: false,
+      created: '2021-03-13'
+    }
+  }
 }
 
 const lists = {

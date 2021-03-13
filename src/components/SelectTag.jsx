@@ -9,17 +9,21 @@ class SelectTag extends Component {
   componentDidMount() {
     this.props.fetchTags()
   }
+
   render() {
-    const options = this.props.tags.map((tag) => ({
-      value: tag,
-      label: tag
+    let { tags, defaultTags } = this.props
+    const options = tags.map((tag) => ({
+      value: tag.id,
+      label: tag.name
     }))
+
     // in edit mode retrieve default tags
-    const defaultTags = this.props.default.map((tag) => ({
-      value: tag,
-      label: tag
-    }))
-    console.log('default tags', defaultTags)
+    defaultTags =
+      defaultTags &&
+      defaultTags.map((tagName) => {
+        const [tagObj] = tags.filter((tag) => tag.name === tagName)
+        return { value: tagObj.id, label: tagObj.name }
+      })
 
     return (
       <>

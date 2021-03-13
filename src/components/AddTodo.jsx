@@ -1,39 +1,32 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { addTodo } from '../actions/list-action'
+import { addTodo } from '../actions/todos'
+import { updateEditingTodo } from '../actions/app'
 
 import TodoEditForm from './TodoEditForm'
 import Button from './Button'
 
 class AddTodo extends Component {
-  state = { editing: false }
-
   handleSubmit = (todoData) => {
     console.log('handle submit', todoData)
     this.props.addTodo(todoData)
-    this.toggleEdit()
-  }
-
-  toggleEdit = () => {
-    this.setState(
-      (state) => ({ editing: !state.editing }),
-      console.log('toggle edit', this.state)
-    )
+    this.props.updateEditingTodo(null)
   }
 
   render() {
+    const { editingTodoId, updateEditingTodo } = this.props
     return (
       <>
-        {this.state.editing ? (
+        {editingTodoId === 'newTodo' ? (
           <TodoEditForm
             onSubmit={this.handleSubmit}
-            toggleEdit={this.toggleEdit}
+            toggleEdit={() => updateEditingTodo(null)}
           />
         ) : (
           <Button
             buttonType={'expand'}
             text={'New Todo'}
-            onClick={this.toggleEdit}
+            onClick={() => updateEditingTodo('newTodo')}
           >
             Add Todo
           </Button>
@@ -42,6 +35,8 @@ class AddTodo extends Component {
     )
   }
 }
-
-const mapDispatchToProps = { addTodo }
-export default connect(null, mapDispatchToProps)(AddTodo)
+const mapStateToProps = (state) => ({
+  editingTodoId: state.app.editingTodoId
+})
+const mapDispatchToProps = { addTodo, updateEditingTodo }
+export default connect(mapStateToProps, mapDispatchToProps)(AddTodo)

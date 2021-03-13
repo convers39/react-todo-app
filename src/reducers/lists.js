@@ -11,7 +11,7 @@ const listsReducer = (state = initialState, action) => {
     case ACTION.FETCH_LISTS:
       return payload.lists
 
-    case ACTION.ADD_NEW_LIST: {
+    case ACTION.ADD_LIST: {
       const { id, name } = action
       return {
         ...state,

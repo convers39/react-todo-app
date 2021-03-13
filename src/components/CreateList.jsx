@@ -5,12 +5,13 @@ import styles from '../styles/SideBar.module.scss'
 import Button from './Button'
 import FilterWrapper from './FilterWrapper'
 
-import { addList } from '../actions/lists-action'
+import { addList } from '../actions/lists'
 
 class CreateList extends Component {
   handleSubmit = (e) => {
     e.preventDefault()
     const { listName } = e.target.elements
+    console.log('list name', listName)
     this.props.addList(listName.value)
     listName.value = ''
   }

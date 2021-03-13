@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import styles from '../styles/SideBar.module.scss'
 import SideBarList from './SideBarList'
-import { fetchLists } from '../actions/lists-action'
+import { fetchLists } from '../actions/lists'
 
 class ListFilter extends Component {
   componentDidMount() {
@@ -10,20 +10,25 @@ class ListFilter extends Component {
   }
   render() {
     const lists = this.props.lists
+    console.log('lists', lists)
     return (
       <div className={styles.list_container}>
-        <ul className={styles.list_filter}>
-          {lists.map((list) => (
-            <SideBarList key={list.id} list={list} />
-          ))}
-        </ul>
+        {lists ? (
+          <ul className={styles.list_filter}>
+            {lists.map((list) => (
+              <SideBarList key={list.id} list={list} />
+            ))}
+          </ul>
+        ) : (
+          <h3>Loading...</h3>
+        )}
       </div>
     )
   }
 }
 
 const mapStateToProps = (state) => ({
-  lists: state.lists.items
+  lists: Object.values(state.lists.items)
 })
 const mapDispatchToProps = { fetchLists }
 

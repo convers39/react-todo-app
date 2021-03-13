@@ -1,5 +1,12 @@
 import db from '../utils/index'
-import * as ACTION from '../constants/list'
+import * as ACTION from '../constants/todos'
+
+export const fetchTodos = () => {
+  return (dispatch) => {
+    const todos = db.get('todos')
+    dispatch({ type: ACTION.FETCH_TODOS, payload: { todos } })
+  }
+}
 
 export const addTodo = ({ listId, task, date, tags }) => {
   return (dispatch) => {
@@ -17,7 +24,7 @@ export const addTodo = ({ listId, task, date, tags }) => {
     // update DB
     const { ids, items } = db.get('todos')
     ids.push(id)
-    items.id = newTodo
+    items[id] = newTodo
     db.set('todos', { ids, items })
 
     dispatch({ type: ACTION.ADD_NEW_TODO, payload: { id, newTodo } })

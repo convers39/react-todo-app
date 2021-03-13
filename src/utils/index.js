@@ -1,4 +1,4 @@
-export const localDB = {
+const localDB = {
   set: (key, val) => {
     return localStorage.setItem(key, JSON.stringify(val))
   },
@@ -12,3 +12,5 @@ export const localDB = {
     return localStorage.clear()
   }
 }
+
+export default localDB

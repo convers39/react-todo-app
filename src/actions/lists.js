@@ -17,7 +17,7 @@ export const addList = (name) => {
     items[id] = { id, name: name, created: new Date() }
     db.set('lists', { ids, items })
 
-    dispatch({ type: ACTION.ADD_NEW_LIST, payload: { id, name } })
+    dispatch({ type: ACTION.ADD_LIST, payload: { id, name } })
   }
 }
 

@@ -8,6 +8,7 @@ const UPDATE_EDITING_TODO = 'update_editing_todo'
 
 const reducer = (state = initialState, action) => {
   const { type, payload } = action
+  console.log('app reducer', payload)
   switch (type) {
     case SELECT_LIST: {
       const { listId } = payload

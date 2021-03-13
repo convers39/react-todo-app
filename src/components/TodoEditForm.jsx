@@ -26,7 +26,7 @@ export default class TodoEditForm extends Component {
   }
   handleListChange = (option) => {
     if (option) {
-      const listId = +option.value
+      const listId = option.value
       this.setState((state) => ({ ...state, listId }))
     } else {
       this.setState((state) => ({ ...state, listId: null }))
@@ -61,11 +61,11 @@ export default class TodoEditForm extends Component {
               onChange={this.handleDateChange}
             />
             <SelectList
-              default={this.state.listId}
+              defaultList={this.state.listId}
               onChange={this.handleListChange}
             />
             <SelectTag
-              default={this.state.tags}
+              defaultTags={this.state.tags}
               onChange={this.handleTagChange}
             />
           </div>

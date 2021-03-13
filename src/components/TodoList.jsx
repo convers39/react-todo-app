@@ -5,12 +5,16 @@ import styles from '../styles/style.module.scss'
 import TodoItem from './TodoItem'
 import AddTodo from './AddTodo'
 import TodoFilter from '../filters/todos'
-import { updateTodoOrder } from '../actions/list-action'
+import { updateTodoOrder, fetchTodos } from '../actions/todos'
 
 class TodoList extends Component {
+  componentDidMount() {
+    this.props.fetchTodos()
+  }
+
   render() {
     const { updateTodoOrder, todos } = this.props
-    console.log('current tasks', todos)
+    console.log('todo list showing', todos)
     const onDragEnd = (result) => {
       // dropped outside the list
       if (!result.destination) {
@@ -98,10 +102,10 @@ const reorder = (list, startIndex, endIndex) => {
 const mapStateToProps = (state) => {
   const filter = new TodoFilter(state, 'todos')
   const { currentListId } = state.app || null
-
+  console.log('filter todos', filter.getItemsByList(currentListId))
   return { todos: filter.getItemsByList(currentListId), currentListId }
 }
-const mapDispatchToProps = { updateTodoOrder }
+const mapDispatchToProps = { updateTodoOrder, fetchTodos }
 const TodoListContainer = connect(mapStateToProps, mapDispatchToProps)(TodoList)
 
 export default TodoListContainer
