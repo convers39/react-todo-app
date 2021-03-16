@@ -1,17 +1,20 @@
 import React, { Component } from 'react'
-import { connect } from 'react-redux'
+
+import { inject, observer } from 'mobx-react'
+import { LIST_STORE } from '../store'
 import styles from '../styles/SideBar.module.scss'
 import SideBarList from './SideBarList'
 import FilterClear from './FilterClear'
-import { fetchLists } from '../store/actions/lists'
 
+@inject(LIST_STORE)
+@observer
 class ListFilter extends Component {
   componentDidMount() {
-    this.props.fetchLists()
+    this.props[LIST_STORE].fetchLists()
   }
   render() {
-    const lists = this.props.lists
-    // console.log('lists filter', lists)
+    const lists = Object.values(this.props[LIST_STORE].items)
+    console.log('lists filter', lists)
     return (
       <div className={styles.list_container}>
         <FilterClear clearType={'lists'} />
@@ -29,9 +32,4 @@ class ListFilter extends Component {
   }
 }
 
-const mapStateToProps = (state) => ({
-  lists: Object.values(state.lists.items)
-})
-const mapDispatchToProps = { fetchLists }
-
-export default connect(mapStateToProps, mapDispatchToProps)(ListFilter)
+export default ListFilter

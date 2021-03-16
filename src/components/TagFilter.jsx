@@ -1,18 +1,24 @@
 import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import { fetchTags, deleteTag } from '../store/actions/tags'
+import { inject, observer } from 'mobx-react'
+import { TAG_STORE } from '../store'
 import Tag from './Tag'
 import FilterWrapper from './FilterWrapper'
 import Button from './Button'
 import styles from '../styles/SideBar.module.scss'
 
+@inject(TAG_STORE)
+@observer
 class TagFilter extends Component {
+  // @action
   componentDidMount() {
-    this.props.fetchTags()
+    this.props[TAG_STORE].fetchTags()
   }
 
   render() {
-    const { tags, deleteTag } = this.props
+    console.log('tag filter', this.props[TAG_STORE])
+    const tags = Object.values(this.props[TAG_STORE].items)
+    const deleteTag = this.props[TAG_STORE].deleteTag
+
     return (
       <FilterWrapper id='tag-filter' filterName='Tags'>
         <div className='tag-filter-container'>
@@ -33,8 +39,11 @@ class TagFilter extends Component {
     )
   }
 }
-const mapStateToProps = (state) => ({
-  tags: Object.values(state.tags.items)
-})
-const mapDispatchToProps = { fetchTags, deleteTag }
-export default connect(mapStateToProps, mapDispatchToProps)(TagFilter)
+
+// const TagFilterContainer = inject((stores) => ({
+//   tags: Object.values(stores[TAG_STORE].tags.items),
+//   deleteTag: stores[TAG_STORE].deleteTag,
+//   fetchTags: stores[TAG_STORE].fetchTags
+// }))(TagFilter)
+
+export default TagFilter

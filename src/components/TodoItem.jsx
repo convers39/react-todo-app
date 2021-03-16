@@ -1,17 +1,19 @@
 import React, { Component } from 'react'
-import { connect } from 'react-redux'
 import styles from '../styles/TodoItem.module.scss'
+import { inject, observer } from 'mobx-react'
+import { APP_STORE } from '../store'
 
 import EditTodo from './EditTodo'
 import DisplayTodo from './DisplayTodo'
-
+@inject(APP_STORE)
+@observer
 class TodoItem extends Component {
   render() {
-    const { todo, editingTodoId } = this.props
+    const { todo } = this.props
 
     return (
       <div className={styles.task_item}>
-        {editingTodoId === todo.id ? (
+        {this.props[APP_STORE].editingTodoId === todo.id ? (
           <EditTodo todoId={todo.id} initialData={todo} />
         ) : (
           <DisplayTodo todo={todo} />
@@ -21,6 +23,4 @@ class TodoItem extends Component {
   }
 }
 
-const mapStateToProps = (state) => ({ editingTodoId: state.app.editingTodoId })
-
-export default connect(mapStateToProps)(TodoItem)
+export default TodoItem

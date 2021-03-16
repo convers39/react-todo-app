@@ -1,8 +1,0 @@
-export const UPDATE_SHOWING_LIST = 'update_showing_list'
-export const REORDER_TODO = 'REORDER_TODO'
-export const TOGGLE_TODO = 'TOGGLE_TODO'
-export const ADD_NEW_TODO = 'add_new_todo'
-export const DELETE_TODO = 'delete_todo'
-export const UPDATE_TODO = 'UPDATE_TODO'
-export const MOVE_TODO = 'move_todo'
-export const FETCH_TODOS = 'fetch_todos'

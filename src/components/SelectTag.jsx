@@ -1,13 +1,14 @@
 import React, { Component } from 'react'
-import { connect } from 'react-redux'
+import { inject, observer } from 'mobx-react'
+import { TAG_STORE } from '../store'
 import CreatableSelect from 'react-select/creatable'
 import styles from '../styles/AddTodo.module.scss'
 
-import { fetchTags, addTag } from '../store/actions/tags'
-
+@inject(TAG_STORE)
+@observer
 class SelectTag extends Component {
   componentDidMount() {
-    this.props.fetchTags()
+    this.props[TAG_STORE].fetchTags()
   }
 
   handleChange = (options) => {
@@ -21,7 +22,9 @@ class SelectTag extends Component {
   }
 
   render() {
-    let { tags, defaultTags } = this.props
+    let { defaultTags } = this.props
+    const tags = Object.values(this.props[TAG_STORE].tags.items)
+
     const options = tags.map((tag) => ({
       value: tag.id,
       label: tag.name
@@ -62,6 +65,4 @@ class SelectTag extends Component {
   }
 }
 
-const mapDispatchToProps = { fetchTags, addTag }
-const mapStateToProps = (state) => ({ tags: Object.values(state.tags.items) })
-export default connect(mapStateToProps, mapDispatchToProps)(SelectTag)
+export default SelectTag

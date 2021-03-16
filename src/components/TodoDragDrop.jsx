@@ -1,18 +1,19 @@
 import React, { Component } from 'react'
-import { connect } from 'react-redux'
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd'
 
 import TodoItem from './TodoItem'
-import { updateTodoOrder } from '../store/actions/todos'
+import { inject, observer } from 'mobx-react'
+import { TODO_STORE } from '../store'
 import { getTaskStyle, getListStyle, onDragEnd } from '../utils/dnd'
 import styles from '../styles/style.module.scss'
-
+@inject(TODO_STORE)
+@observer
 class TodoDragDrop extends Component {
   render() {
-    const { updateTodoOrder, todos } = this.props
+    const { todos } = this.props
     const handleDragEnd = (result) => {
       const [sourceId, destinationId] = onDragEnd(result, todos)
-      updateTodoOrder(sourceId, destinationId)
+      this.props[TODO_STORE].updateTodoOrder(sourceId, destinationId)
     }
 
     return (
@@ -64,6 +65,4 @@ class TodoDragDrop extends Component {
   }
 }
 
-const mapDispatchToProps = { updateTodoOrder }
-
-export default connect(null, mapDispatchToProps)(TodoDragDrop)
+export default TodoDragDrop

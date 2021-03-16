@@ -1,17 +1,18 @@
 import React, { Component } from 'react'
-import { connect } from 'react-redux'
+import { inject, observer } from 'mobx-react'
+import { LIST_STORE } from '../store'
 import styles from '../styles/SideBar.module.scss'
 
 import Button from './Button'
 import FilterWrapper from './FilterWrapper'
 
-import { addList } from '../store/actions/lists'
-
+@inject(LIST_STORE)
+@observer
 class CreateList extends Component {
   handleSubmit = (e) => {
     e.preventDefault()
     const { listName } = e.target.elements
-    this.props.addList(listName.value)
+    this.props[LIST_STORE].addList(listName.value)
     listName.value = ''
   }
   render() {
@@ -31,6 +32,4 @@ class CreateList extends Component {
   }
 }
 
-const mapDispatchToProps = { addList }
-
-export default connect(null, mapDispatchToProps)(CreateList)
+export default CreateList

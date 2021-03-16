@@ -1,12 +1,17 @@
 import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import { clearTagsFilter, clearListFilter } from '../store/actions/app'
+import { inject, observer } from 'mobx-react'
+import { APP_STORE } from '../store'
 import Button from './Button'
 import styles from '../styles/style.module.scss'
 
+@inject(APP_STORE)
+@observer
 class FilterClear extends Component {
   render() {
-    const { clearType, clearTagsFilter, clearListFilter } = this.props
+    const clearType = this.props
+    const clearListFilter = this.props[APP_STORE].clearListFilter
+    const clearTagsFilter = this.props[APP_STORE].clearTagsFilter
+
     let handleClick, className
     switch (clearType) {
       case 'lists':
@@ -27,10 +32,4 @@ class FilterClear extends Component {
   }
 }
 
-const mapStateToProps = (state) => ({
-  currentListId: state.app.currentListId,
-  selectedTags: state.app.selectedTags
-})
-
-const mapDispatchToProps = { clearTagsFilter, clearListFilter }
-export default connect(mapStateToProps, mapDispatchToProps)(FilterClear)
+export default FilterClear

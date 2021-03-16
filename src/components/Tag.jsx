@@ -1,11 +1,15 @@
 import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import { updateSelectedTags } from '../store/actions/app'
+
+import { inject, observer } from 'mobx-react'
+import { APP_STORE } from '../store'
 import styles from '../styles/style.module.scss'
 
+@inject(APP_STORE)
+@observer
 class Tag extends Component {
   render() {
-    const { tagName, updateSelectedTags, selectedTags } = this.props
+    const { tagName } = this.props
+    const { updateSelectedTags, selectedTags } = this.props[APP_STORE]
     return (
       <div
         className={`${
@@ -19,9 +23,4 @@ class Tag extends Component {
   }
 }
 
-const mapStateToProps = (state) => ({
-  selectedTags: state.app.selectedTags
-})
-const mapDispatchToProps = { updateSelectedTags }
-
-export default connect(mapStateToProps, mapDispatchToProps)(Tag)
+export default Tag

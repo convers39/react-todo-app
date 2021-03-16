@@ -1,35 +1,34 @@
 import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import { addTodo } from '../store/actions/todos'
-import { updateEditingTodo } from '../store/actions/app'
-
+import { inject, observer } from 'mobx-react'
+import { APP_STORE } from '../store'
 import TodoEditForm from './TodoEditForm'
 import Button from './Button'
 
 import styles from '../styles/AddTodo.module.scss'
 
+@inject(APP_STORE)
+@observer
 class AddTodo extends Component {
   handleSubmit = (todoData) => {
-    this.props.addTodo(todoData)
-    this.props.updateEditingTodo(null)
+    this.props[APP_STORE].addTodo(todoData)
+    this.props[APP_STORE].updateEditingTodo(null)
   }
 
   render() {
-    const { editingTodoId, updateEditingTodo } = this.props
     return (
       <>
-        {editingTodoId === 'newTodo' ? (
+        {this.props[APP_STORE].editingTodoId === 'newTodo' ? (
           <div className={styles.add_todo_container}>
             <TodoEditForm
               onSubmit={this.handleSubmit}
-              toggleEdit={() => updateEditingTodo(null)}
+              toggleEdit={() => this.props[APP_STORE].updateEditingTodo(null)}
             />
           </div>
         ) : (
           <Button
             buttonType={'expand'}
             text={'New Todo'}
-            onClick={() => updateEditingTodo('newTodo')}
+            onClick={() => this.props[APP_STORE].updateEditingTodo('newTodo')}
           >
             Add Todo
           </Button>
@@ -38,8 +37,5 @@ class AddTodo extends Component {
     )
   }
 }
-const mapStateToProps = (state) => ({
-  editingTodoId: state.app.editingTodoId
-})
-const mapDispatchToProps = { addTodo, updateEditingTodo }
-export default connect(mapStateToProps, mapDispatchToProps)(AddTodo)
+
+export default AddTodo

@@ -1,15 +1,20 @@
 import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import { toggleFinished, deleteTodo } from '../store/actions/todos'
-import { updateEditingTodo } from '../store/actions/app'
-import styles from '../styles/TodoItem.module.scss'
+import { inject, observer } from 'mobx-react'
+import { TODO_STORE, APP_STORE } from '../store'
 
 import Button from './Button'
 import Tag from './Tag'
+import styles from '../styles/TodoItem.module.scss'
 
+@inject(APP_STORE, TODO_STORE)
+@observer
 class DisplayTodo extends Component {
   render() {
-    const { todo, toggleFinished, deleteTodo, updateEditingTodo } = this.props
+    console.log('display todo', this.props[TODO_STORE])
+    const toggleFinished = this.props[TODO_STORE].toggleFinished
+    const deleteTodo = this.props[TODO_STORE].deleteTodo
+    const updateEditingTodo = this.props[APP_STORE].updateEditingTodo
+    const { todo } = this.props
 
     return (
       <div className={styles.content}>
@@ -45,6 +50,4 @@ class DisplayTodo extends Component {
   }
 }
 
-const mapDispatchToProps = { toggleFinished, deleteTodo, updateEditingTodo }
-
-export default connect(null, mapDispatchToProps)(DisplayTodo)
+export default DisplayTodo

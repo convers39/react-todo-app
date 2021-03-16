@@ -1,14 +1,16 @@
 import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import TodoEditForm from './TodoEditForm'
-import { updateTodo } from '../store/actions/todos'
-import { updateEditingTodo } from '../store/actions/app'
 
+import { inject, observer } from 'mobx-react'
+import { TODO_STORE, APP_STORE } from '../store'
+import TodoEditForm from './TodoEditForm'
+
+@inject(APP_STORE, TODO_STORE)
+@observer
 class EditTodo extends Component {
   handleSubmit = (todoData) => {
     const todoId = this.props.todoId
-    this.props.updateTodo(todoId, todoData)
-    this.props.updateEditingTodo(null)
+    this.props[TODO_STORE].updateTodo(todoId, todoData)
+    this.props[APP_STORE].updateEditingTodo(null)
   }
 
   render() {
@@ -16,12 +18,10 @@ class EditTodo extends Component {
       <TodoEditForm
         initialData={this.props.initialData}
         onSubmit={this.handleSubmit}
-        toggleEdit={() => this.props.updateEditingTodo(null)}
+        toggleEdit={() => this.props[APP_STORE].updateEditingTodo(null)}
       />
     )
   }
 }
 
-const mapDispatchToProps = { updateTodo, updateEditingTodo }
-
-export default connect(null, mapDispatchToProps)(EditTodo)
+export default EditTodo

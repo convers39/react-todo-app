@@ -1,12 +1,15 @@
 import React, { Component } from 'react'
-import { connect } from 'react-redux'
+import { inject, observer } from 'mobx-react'
+import { LIST_STORE, APP_STORE } from '../store'
 import styles from '../styles/SideBar.module.scss'
-import { deleteList } from '../store/actions/lists'
-import { selectList } from '../store/actions/app'
 
+@inject(LIST_STORE, APP_STORE)
+@observer
 class SideBarList extends Component {
   render() {
-    const { list, deleteList, selectList } = this.props
+    const { list } = this.props
+    const deleteList = this.props[LIST_STORE].deleteList
+    const selectList = this.props[APP_STORE].selectList
     return (
       <li
         className={`${
@@ -31,13 +34,4 @@ class SideBarList extends Component {
   }
 }
 
-const mapStateToProps = (state) => ({
-  currentListId: state.app.currentListId
-})
-const mapDispatchToProps = { selectList, deleteList }
-const SideBarListContainer = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(SideBarList)
-
-export default SideBarListContainer
+export default SideBarList

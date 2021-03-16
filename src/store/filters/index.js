@@ -1,6 +1,7 @@
 export default class Filter {
-  constructor(store, reducerName) {
-    this.state = store[reducerName]
+  constructor(stores, storeName) {
+    this.state = { ...stores[storeName] }
+    console.log('filter', this.state)
     this.ids = this.state ? this.state.ids : []
   }
 

@@ -1,10 +1,15 @@
 import React, { Component } from 'react'
-import { connect } from 'react-redux'
+import { inject, observer } from 'mobx-react'
+import { LIST_STORE } from '../store'
 import Select from 'react-select'
 import styles from '../styles/AddTodo.module.scss'
+@inject(LIST_STORE)
+@observer
 class SelectList extends Component {
   render() {
-    let { lists, defaultList } = this.props
+    const lists = Object.values(this.props[LIST_STORE].lists.items)
+    let { defaultList } = this.props
+
     const options = lists.map((list) => ({
       value: list.id,
       label: list.name
@@ -38,7 +43,5 @@ class SelectList extends Component {
     )
   }
 }
-const mapStateToProps = (state) => ({
-  lists: Object.values(state.lists.items)
-})
-export default connect(mapStateToProps)(SelectList)
+
+export default SelectList
