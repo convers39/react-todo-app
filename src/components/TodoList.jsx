@@ -1,19 +1,39 @@
 import React, { Component } from 'react'
-import styles from '../styles/TodoList.module.scss'
-import TodoItem from './TodoItem'
+import { connect } from 'react-redux'
 
-export default class TodoList extends Component {
+import AddTodo from './AddTodo'
+import TodoDragDrop from './TodoDragDrop'
+import TodoFilter from '../store/filters/todos'
+import { fetchTodos } from '../store/actions/todos'
+
+import styles from '../styles/style.module.scss'
+class TodoList extends Component {
+  componentDidMount() {
+    this.props.fetchTodos()
+  }
+
   render() {
+    const { todos } = this.props
     return (
-      <div className={styles.container}>
-        <div className={styles.content}>
-          <ul className={styles.todo_items}>
-            <TodoItem />
-            <TodoItem />
-            <TodoItem />
-          </ul>
-        </div>
+      <div className={styles.list_container}>
+        <TodoDragDrop todos={todos} />
+        <AddTodo />
       </div>
     )
   }
 }
+
+const mapStateToProps = (state) => {
+  const filter = new TodoFilter(state, 'todos')
+  const { currentListId, selectedTags } = state.app
+  let todos = filter.getItemsByList(currentListId)
+  if (selectedTags.length) {
+    const checkSubArray = (arr, sub) => sub.every((v) => arr.includes(v))
+    todos = todos.filter((todo) => checkSubArray(todo.tags, selectedTags))
+  }
+  return { todos, currentListId }
+}
+const mapDispatchToProps = { fetchTodos }
+const TodoListContainer = connect(mapStateToProps, mapDispatchToProps)(TodoList)
+
+export default TodoListContainer

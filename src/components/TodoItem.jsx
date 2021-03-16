@@ -1,22 +1,26 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import styles from '../styles/TodoItem.module.scss'
 
-export default class TodoItem extends Component {
+import EditTodo from './EditTodo'
+import DisplayTodo from './DisplayTodo'
+
+class TodoItem extends Component {
   render() {
+    const { todo, editingTodoId } = this.props
+
     return (
-      <li className={styles.task_item}>
-        <div className={styles.content}>
-          <input type='checkbox' />
-          <div className={styles.details}>
-            <div className={styles.text}>task content</div>
-            <div className={styles.tags}>tags</div>
-          </div>
-          <div className={styles.actions}>
-            <button>edit</button>
-            <button>Delete</button>
-          </div>
-        </div>
-      </li>
+      <div className={styles.task_item}>
+        {editingTodoId === todo.id ? (
+          <EditTodo todoId={todo.id} initialData={todo} />
+        ) : (
+          <DisplayTodo todo={todo} />
+        )}
+      </div>
     )
   }
 }
+
+const mapStateToProps = (state) => ({ editingTodoId: state.app.editingTodoId })
+
+export default connect(mapStateToProps)(TodoItem)

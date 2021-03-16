@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-import styles from '../styles/Header.module.scss'
+import styles from '../styles/style.module.scss'
+import Button from './Button'
 
 export default class Header extends Component {
   render() {
@@ -11,7 +12,7 @@ export default class Header extends Component {
             <small>{new Date().toDateString()}</small>
           </h2>
           <div>
-            <button>Sort</button>
+            <Button buttonType={'sort'} icon={'sort'} />
           </div>
         </div>
       </header>

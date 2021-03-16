@@ -1,21 +1,34 @@
+import { createStore, applyMiddleware } from 'redux'
+import { Provider } from 'react-redux'
+import { composeWithDevTools } from 'redux-devtools-extension'
+import thunk from 'redux-thunk'
+
+import rootReducer from './store/reducers'
 import './App.scss'
 import TopBar from './components/TopBar'
 import Sidebar from './components/SideBar'
-import TodoList from './components/TodoList'
+import TodoListContainer from './components/TodoList'
 import Header from './components/Header'
+
+const store = createStore(
+  rootReducer,
+  composeWithDevTools(applyMiddleware(thunk))
+)
 
 function App() {
   return (
-    <div className='App'>
-      <TopBar />
-      <div className='content-wrapper'>
-        <Sidebar />
-        <main className='main-content'>
-          <Header />
-          <TodoList />
-        </main>
+    <Provider store={store}>
+      <div className='App'>
+        <TopBar />
+        <div className='content-wrapper'>
+          <Sidebar />
+          <main className='main-content'>
+            <Header />
+            <TodoListContainer />
+          </main>
+        </div>
       </div>
-    </div>
+    </Provider>
   )
 }
 
