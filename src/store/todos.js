@@ -1,4 +1,4 @@
-import { action, observable, computed } from 'mobx'
+import { action, observable, computed, makeObservable, autorun } from 'mobx'
 import db from '../utils/index'
 
 class Todo {
@@ -10,6 +10,7 @@ class Todo {
   @observable deleted
 
   constructor(listId, task, date, tags) {
+    makeObservable(this)
     this.id = `todo_${Date.now()}`
     this.task = task
     this.listId = listId
@@ -25,8 +26,10 @@ export class TodoStore {
   @observable items = {}
 
   constructor() {
+    makeObservable(this)
     this.ids = db.get('todos')?.ids || []
     this.items = db.get('todos')?.items || {}
+    autorun(() => db.set('todos', { ids: this.ids, items: this.items }))
   }
 
   @computed get todos() {
@@ -50,28 +53,27 @@ export class TodoStore {
 
     this.ids.push(newTodo.id)
     this.items[newTodo.id] = newTodo
-    db.set('todos', { ids: this.ids, items: this.items })
   }
 
   @action.bound updateTodo = (id, todoData) => {
     this.items[id] = { ...this.items[id], ...todoData }
-    db.set('todos', { ids: this.ids, items: this.items })
+  }
+
+  @action.bound deleteTodoTags = (tag) => {
+    this.todos.forEach((todo) => {
+      if (todo.tags.includes(tag)) {
+        todo.tags = todo.tags.filter((name) => name !== tag)
+      }
+    })
   }
 
   @action.bound deleteTodo = (id) => {
     this.ids = this.ids.filter((todoId) => todoId !== id)
     delete this.items[id]
-    db.set('todos', { ids: this.ids, items: this.items })
   }
 
   @action.bound toggleFinished = (id) => {
-    const { ids, items } = db.get('todos')
     this.items[id].finished = !this.items[id].finished
-    db.set('todos', { ids: this.ids, items: this.items })
-
-    console.log('toggle finished', this)
-    this.ids = ids
-    this.items = items
   }
 
   @action.bound updateTodoOrder = (sourceId, destinationId) => {
@@ -82,7 +84,6 @@ export class TodoStore {
     this.ids[sourceIndex] = this.ids[destinationIndex]
     this.ids[destinationIndex] = temp
     // [ids[sourceIndex],ids[destinationIndex]] = [ids[destinationIndex],ids[sourceIndex]]
-    db.set('todos', { ids: this.ids, items: this.items })
   }
 }
 

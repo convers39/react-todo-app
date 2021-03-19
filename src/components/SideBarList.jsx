@@ -10,7 +10,7 @@ class SideBarList extends Component {
     const { list } = this.props
     const { deleteList } = this.props[LIST_STORE]
     const { currentListId, selectList } = this.props[APP_STORE]
-    console.log('side bar list', currentListId, selectList)
+
     return (
       <li
         className={`${currentListId === list.id ? styles.active : ''} ${

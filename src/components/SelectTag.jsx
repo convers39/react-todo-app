@@ -7,23 +7,23 @@ import styles from '../styles/AddTodo.module.scss'
 @inject(TAG_STORE)
 @observer
 class SelectTag extends Component {
-  componentDidMount() {
-    this.props[TAG_STORE].fetchTags()
-  }
+  // componentDidMount() {
+  //   this.props[TAG_STORE].fetchTags()
+  // }
 
   handleChange = (options) => {
     const tags = options.map((obj) => obj.label.toLowerCase())
     // check if new tag is created, then fire add tag action
-    const currentTags = this.props.tags.map((tag) => tag.name)
+    const currentTags = this.props[TAG_STORE].tags.map((tag) => tag.name)
     const newTags = tags.filter((tag) => !currentTags.includes(tag))
-    newTags.length && newTags.map((tag) => this.props.addTag(tag))
+    newTags.length && newTags.map((tag) => this.props[TAG_STORE].addTag(tag))
     // pass tag list to edit form
     this.props.onChange(tags)
   }
 
   render() {
     let { defaultTags } = this.props
-    const tags = Object.values(this.props[TAG_STORE].items)
+    const { tags } = this.props[TAG_STORE]
 
     const options = tags.map((tag) => ({
       value: tag.id,

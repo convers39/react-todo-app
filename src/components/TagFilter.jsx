@@ -1,21 +1,22 @@
 import React, { Component } from 'react'
 import { inject, observer } from 'mobx-react'
-import { TAG_STORE } from '../store'
+import { TAG_STORE, TODO_STORE } from '../store'
 import Tag from './Tag'
 import FilterWrapper from './FilterWrapper'
 import Button from './Button'
 import styles from '../styles/SideBar.module.scss'
 
-@inject(TAG_STORE)
+@inject(TAG_STORE, TODO_STORE)
 @observer
 class TagFilter extends Component {
-  componentDidMount() {
-    this.props[TAG_STORE].fetchTags()
+  handleDeleteTag = (tagId) => {
+    const tag = this.props.tagStore.getTag(tagId)
+    this.props.tagStore.deleteTag(tagId)
+    this.props.todoStore.deleteTodoTags(tag.name)
   }
 
   render() {
-    console.log('tag filter', this.props[TAG_STORE])
-    const { tags, deleteTag } = this.props[TAG_STORE]
+    const { tags } = this.props[TAG_STORE]
 
     return (
       <FilterWrapper id='tag-filter' filterName='Tags'>
@@ -27,7 +28,7 @@ class TagFilter extends Component {
                 <Button
                   buttonType={'delete'}
                   icon={'delete'}
-                  onClick={() => deleteTag(tag.id)}
+                  onClick={() => this.handleDeleteTag(tag.id)}
                 />
               </li>
             ))}

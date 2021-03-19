@@ -9,12 +9,9 @@ import FilterClear from './FilterClear'
 @inject(LIST_STORE)
 @observer
 class ListFilter extends Component {
-  // componentDidMount() {
-  //   this.props[LIST_STORE].fetchLists()
-  // }
   render() {
     const { lists } = this.props[LIST_STORE]
-    console.log('lists filter', this.props[LIST_STORE].ids, lists)
+
     return (
       <div className={styles.list_container}>
         <FilterClear clearType={'lists'} />

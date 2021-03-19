@@ -1,13 +1,25 @@
-import { action, observable, computed } from 'mobx'
+import { action, observable, computed, makeObservable, autorun } from 'mobx'
 import db from '../utils/index'
 
+class Tag {
+  @observable id
+  @observable name
+  constructor(name) {
+    makeObservable(this)
+    this.id = `tag_${Date.now()}`
+    this.name = name
+    this.created = new Date().toLocaleDateString('en-CA')
+  }
+}
 export class TagStore {
   @observable ids = []
   @observable items = {}
 
   constructor() {
+    makeObservable(this)
     this.ids = db.get('tags')?.ids || []
     this.items = db.get('tags')?.items || {}
+    autorun(() => db.set('tags', { ids: this.ids, items: this.items }))
   }
 
   @computed get tags() {
@@ -21,28 +33,24 @@ export class TagStore {
     this.items = tags.items || {}
   }
 
-  @action.bound addTag(name) {
-    const id = `tag_${Date.now()}`
-    const newTag = {
-      id,
-      name,
-      created: new Date().toLocaleDateString('en-CA')
-    }
+  @action.bound getTag = (id) => {
+    console.log('getTag', id, this.items, this.items[id])
+    return this.items[id] || {}
+  }
 
-    this.ids.push(id)
-    this.items[id] = newTag
-    db.set('tags', { ids: this.ids, items: this.items })
+  @action.bound addTag(name) {
+    const newTag = new Tag(name)
+    this.ids.push(newTag.id)
+    this.items[newTag.id] = newTag
   }
 
   @action.bound updateTag(id, tagData) {
     this.items[id] = { ...this.items[id], ...tagData }
-    db.set('tags', { ids: this.ids, items: this.items })
   }
 
   @action.bound deleteTag(id) {
     this.ids = this.ids.filter((tagId) => tagId !== id)
     delete this.items[id]
-    db.set('tags', { ids: this.ids, items: this.items })
   }
 }
 

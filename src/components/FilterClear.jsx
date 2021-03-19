@@ -8,9 +8,8 @@ import styles from '../styles/style.module.scss'
 @observer
 class FilterClear extends Component {
   render() {
-    const clearType = this.props
-    const clearListFilter = this.props[APP_STORE].clearListFilter
-    const clearTagsFilter = this.props[APP_STORE].clearTagsFilter
+    const { clearType } = this.props
+    const { clearListFilter, clearTagsFilter } = this.props[APP_STORE]
 
     let handleClick, className
     switch (clearType) {
@@ -24,6 +23,7 @@ class FilterClear extends Component {
       default:
         handleClick = () => {}
     }
+
     return (
       <div className={className}>
         <Button buttonType={'all'} text={'ALL TODO'} onClick={handleClick} />

@@ -1,16 +1,16 @@
 import React, { Component } from 'react'
 import { inject, observer } from 'mobx-react'
-import { APP_STORE } from '../store'
+import { APP_STORE, TODO_STORE } from '../store'
 import TodoEditForm from './TodoEditForm'
 import Button from './Button'
 
 import styles from '../styles/AddTodo.module.scss'
 
-@inject(APP_STORE)
+@inject(APP_STORE, TODO_STORE)
 @observer
 class AddTodo extends Component {
   handleSubmit = (todoData) => {
-    this.props[APP_STORE].addTodo(todoData)
+    this.props[TODO_STORE].addTodo(todoData)
     this.props[APP_STORE].updateEditingTodo(null)
   }
 

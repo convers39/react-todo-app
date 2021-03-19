@@ -11,8 +11,8 @@ const stores = {
   [TAG_STORE]: new TagStore()
 }
 
+// for functional components
 const StoresContext = createContext(stores)
-
 const useStores = () => useContext(StoresContext)
 
 const useTodoStore = () => {
