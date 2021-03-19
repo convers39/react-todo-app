@@ -1,9 +1,18 @@
-import { action, observable } from 'mobx'
+import { action, observable, computed } from 'mobx'
 import db from '../utils/index'
 
 export class ListStore {
   @observable ids = []
   @observable items = {}
+
+  constructor() {
+    this.ids = db.get('lists').ids
+    this.items = db.get('lists').items
+  }
+
+  @computed get lists() {
+    return Object.values(this.items)
+  }
 
   @action.bound fetchLists() {
     const lists = db.get('lists')
@@ -11,7 +20,7 @@ export class ListStore {
     this.items = lists.items
   }
 
-  @action.bound addList(name) {
+  @action.bound addList = (name) => {
     const id = `list_${Date.now()}`
     const newList = {
       id,
@@ -24,11 +33,12 @@ export class ListStore {
     ids.push(id)
     items[id] = newList
     db.set('lists', { ids, items })
+    console.log('add list', this)
     this.ids = ids
     this.items = items
   }
 
-  @action.bound updateList(id, listData) {
+  @action.bound updateList = (id, listData) => {
     const { ids, items } = db.get('lists')
     items[id] = { ...items[id], ...listData }
     db.set('lists', { ids, items })
@@ -36,12 +46,14 @@ export class ListStore {
     this.items = items
   }
 
-  @action.bound deleteList(id) {
+  @action.bound deleteList = (id) => {
     // update DB
     let { ids, items } = db.get('lists')
     ids = ids.filter((listId) => listId !== id)
     delete items[id]
     db.set('lists', { ids, items })
+
+    console.log('delete list', this)
     this.ids = ids
     this.items = items
   }

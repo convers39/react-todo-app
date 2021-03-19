@@ -8,13 +8,14 @@ import styles from '../styles/SideBar.module.scss'
 class SideBarList extends Component {
   render() {
     const { list } = this.props
-    const deleteList = this.props[LIST_STORE].deleteList
-    const selectList = this.props[APP_STORE].selectList
+    const { deleteList } = this.props[LIST_STORE]
+    const { currentListId, selectList } = this.props[APP_STORE]
+    console.log('side bar list', currentListId, selectList)
     return (
       <li
-        className={`${
-          this.props.currentListId === list.id ? styles.active : ''
-        } ${styles.list_wrapper}`}
+        className={`${currentListId === list.id ? styles.active : ''} ${
+          styles.list_wrapper
+        }`}
       >
         <div
           id={list.id}

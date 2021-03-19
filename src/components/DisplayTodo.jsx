@@ -10,10 +10,8 @@ import styles from '../styles/TodoItem.module.scss'
 @observer
 class DisplayTodo extends Component {
   render() {
-    console.log('display todo', this.props[TODO_STORE])
-    const toggleFinished = this.props[TODO_STORE].toggleFinished
-    const deleteTodo = this.props[TODO_STORE].deleteTodo
-    const updateEditingTodo = this.props[APP_STORE].updateEditingTodo
+    const { toggleFinished, deleteTodo } = this.props[TODO_STORE]
+    const { updateEditingTodo } = this.props[APP_STORE]
     const { todo } = this.props
 
     return (

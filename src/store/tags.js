@@ -1,9 +1,18 @@
-import { action, observable } from 'mobx'
+import { action, observable, computed } from 'mobx'
 import db from '../utils/index'
 
 export class TagStore {
   @observable ids = []
   @observable items = {}
+
+  constructor() {
+    this.ids = db.get('tags').ids
+    this.items = db.get('tags').items
+  }
+
+  @computed get tags() {
+    return Object.values(this.items)
+  }
 
   @action.bound fetchTags() {
     const tags = db.get('tags')

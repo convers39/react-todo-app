@@ -9,15 +9,13 @@ import styles from '../styles/SideBar.module.scss'
 @inject(TAG_STORE)
 @observer
 class TagFilter extends Component {
-  // @action
   componentDidMount() {
     this.props[TAG_STORE].fetchTags()
   }
 
   render() {
     console.log('tag filter', this.props[TAG_STORE])
-    const tags = Object.values(this.props[TAG_STORE].items)
-    const deleteTag = this.props[TAG_STORE].deleteTag
+    const { tags, deleteTag } = this.props[TAG_STORE]
 
     return (
       <FilterWrapper id='tag-filter' filterName='Tags'>

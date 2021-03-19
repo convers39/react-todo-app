@@ -23,7 +23,7 @@ class SelectTag extends Component {
 
   render() {
     let { defaultTags } = this.props
-    const tags = Object.values(this.props[TAG_STORE].tags.items)
+    const tags = Object.values(this.props[TAG_STORE].items)
 
     const options = tags.map((tag) => ({
       value: tag.id,
@@ -39,28 +39,26 @@ class SelectTag extends Component {
       })
 
     return (
-      <>
-        <CreatableSelect
-          className={styles.tag_selector}
-          classNamePrefix='select'
-          isMulti
-          placeholder='Tags'
-          value={defaultTags || ''}
-          isClearable={true}
-          isSearchable={true}
-          name='tag-selector'
-          options={options}
-          onChange={this.handleChange}
-          theme={(theme) => ({
-            ...theme,
-            colors: {
-              ...theme.colors,
-              primary25: 'lightblue',
-              primary: 'darkgray'
-            }
-          })}
-        />
-      </>
+      <CreatableSelect
+        className={styles.tag_selector}
+        classNamePrefix='select'
+        isMulti
+        placeholder='Tags'
+        value={defaultTags || ''}
+        isClearable={true}
+        isSearchable={true}
+        name='tag-selector'
+        options={options}
+        onChange={this.handleChange}
+        theme={(theme) => ({
+          ...theme,
+          colors: {
+            ...theme.colors,
+            primary25: 'lightblue',
+            primary: 'darkgray'
+          }
+        })}
+      />
     )
   }
 }

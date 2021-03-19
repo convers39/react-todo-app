@@ -7,7 +7,7 @@ import styles from '../styles/AddTodo.module.scss'
 @observer
 class SelectList extends Component {
   render() {
-    const lists = Object.values(this.props[LIST_STORE].lists.items)
+    const { lists } = this.props[LIST_STORE]
     let { defaultList } = this.props
 
     const options = lists.map((list) => ({
@@ -19,27 +19,25 @@ class SelectList extends Component {
       defaultList && lists.findIndex((list) => list.id === defaultList)
 
     return (
-      <>
-        <Select
-          className={styles.list_selector}
-          classNamePrefix='select'
-          placeholder='List'
-          value={options[defaultIndex] || ''}
-          isClearable={true}
-          isSearchable={true}
-          onChange={this.props.onChange}
-          name='list-selector'
-          options={options}
-          theme={(theme) => ({
-            ...theme,
-            colors: {
-              ...theme.colors,
-              primary25: 'lightblue',
-              primary: 'darkgray'
-            }
-          })}
-        />
-      </>
+      <Select
+        className={styles.list_selector}
+        classNamePrefix='select'
+        placeholder='List'
+        value={options[defaultIndex] || ''}
+        isClearable={true}
+        isSearchable={true}
+        onChange={this.props.onChange}
+        name='list-selector'
+        options={options}
+        theme={(theme) => ({
+          ...theme,
+          colors: {
+            ...theme.colors,
+            primary25: 'lightblue',
+            primary: 'darkgray'
+          }
+        })}
+      />
     )
   }
 }
