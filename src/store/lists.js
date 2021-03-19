@@ -6,8 +6,8 @@ export class ListStore {
   @observable items = {}
 
   constructor() {
-    this.ids = db.get('lists').ids
-    this.items = db.get('lists').items
+    this.ids = db.get('lists')?.ids || []
+    this.items = db.get('lists')?.items || {}
   }
 
   @computed get lists() {
@@ -15,9 +15,9 @@ export class ListStore {
   }
 
   @action.bound fetchLists() {
-    const lists = db.get('lists')
-    this.ids = lists.ids
-    this.items = lists.items
+    const lists = db.get('lists') || {}
+    this.ids = lists.ids || []
+    this.items = lists.items || {}
   }
 
   @action.bound addList = (name) => {
@@ -28,34 +28,20 @@ export class ListStore {
       created: new Date().toLocaleDateString('en-CA')
     }
 
-    // update DB
-    const { ids, items } = db.get('lists')
-    ids.push(id)
-    items[id] = newList
-    db.set('lists', { ids, items })
-    console.log('add list', this)
-    this.ids = ids
-    this.items = items
+    this.ids.push(id)
+    this.items[id] = newList
+    db.set('lists', { ids: this.ids, items: this.items })
   }
 
   @action.bound updateList = (id, listData) => {
-    const { ids, items } = db.get('lists')
-    items[id] = { ...items[id], ...listData }
-    db.set('lists', { ids, items })
-    this.ids = ids
-    this.items = items
+    this.items[id] = { ...this.items[id], ...listData }
+    db.set('lists', { ids: this.ids, items: this.items })
   }
 
   @action.bound deleteList = (id) => {
-    // update DB
-    let { ids, items } = db.get('lists')
-    ids = ids.filter((listId) => listId !== id)
-    delete items[id]
-    db.set('lists', { ids, items })
-
-    console.log('delete list', this)
-    this.ids = ids
-    this.items = items
+    this.ids = this.ids.filter((listId) => listId !== id)
+    delete this.items[id]
+    db.set('lists', { ids: this.ids, items: this.items })
   }
 }
 

@@ -21,13 +21,12 @@ class Todo {
   }
 }
 export class TodoStore {
-  // @observable todos = { ids: [], items: {} }
   @observable ids = []
   @observable items = {}
 
   constructor() {
-    this.ids = db.get('todos').ids
-    this.items = db.get('todos').items
+    this.ids = db.get('todos')?.ids || []
+    this.items = db.get('todos')?.items || {}
   }
 
   @computed get todos() {
@@ -39,73 +38,51 @@ export class TodoStore {
   }
 
   @action.bound fetchTodos() {
-    const todos = db.get('todos')
-    // this.todos = todos
-    this.ids = todos.ids
-    this.items = todos.items
+    const todos = db.get('todos') || {}
+
+    this.ids = todos.ids || []
+    this.items = todos.items || {}
   }
 
   @action.bound addTodo = (todoData) => {
     const { listId, task, date, tags } = todoData
     const newTodo = new Todo(listId, task, date, tags)
 
-    // update DB
-    const { ids, items } = db.get('todos')
-    ids.push(newTodo.id)
-    items[newTodo.id] = newTodo
-    db.set('todos', { ids, items })
-    this.ids = ids
-    this.items = items
-    // this.todos = { ids, items }
+    this.ids.push(newTodo.id)
+    this.items[newTodo.id] = newTodo
+    db.set('todos', { ids: this.ids, items: this.items })
   }
 
   @action.bound updateTodo = (id, todoData) => {
-    const { ids, items } = db.get('todos')
-    items[id] = { ...items[id], ...todoData }
-    db.set('todos', { ids, items })
-    // this.todos = { ids, items }
-
-    this.ids = ids
-    this.items = items
+    this.items[id] = { ...this.items[id], ...todoData }
+    db.set('todos', { ids: this.ids, items: this.items })
   }
 
   @action.bound deleteTodo = (id) => {
-    // update DB
-    let { ids, items } = db.get('todos')
-    ids = ids.filter((todoId) => todoId !== id)
-    delete items[id]
-    db.set('todos', { ids, items })
-    // this.todos = { ids, items }
-
-    this.ids = ids
-    this.items = items
+    this.ids = this.ids.filter((todoId) => todoId !== id)
+    delete this.items[id]
+    db.set('todos', { ids: this.ids, items: this.items })
   }
 
   @action.bound toggleFinished = (id) => {
-    // update DB
     const { ids, items } = db.get('todos')
-    items[id].finished = !items[id].finished
-    db.set('todos', { ids, items })
-    // this.todos = { ids, items }
+    this.items[id].finished = !this.items[id].finished
+    db.set('todos', { ids: this.ids, items: this.items })
+
     console.log('toggle finished', this)
     this.ids = ids
     this.items = items
   }
 
   @action.bound updateTodoOrder = (sourceId, destinationId) => {
-    const { ids, items } = db.get('todos')
-    const sourceIndex = ids.indexOf(sourceId)
-    const destinationIndex = ids.indexOf(destinationId)
+    const sourceIndex = this.ids.indexOf(sourceId)
+    const destinationIndex = this.ids.indexOf(destinationId)
 
-    let temp = ids[sourceIndex]
-    ids[sourceIndex] = ids[destinationIndex]
-    ids[destinationIndex] = temp
+    let temp = this.ids[sourceIndex]
+    this.ids[sourceIndex] = this.ids[destinationIndex]
+    this.ids[destinationIndex] = temp
     // [ids[sourceIndex],ids[destinationIndex]] = [ids[destinationIndex],ids[sourceIndex]]
-    db.set('todos', { ids, items })
-    // this.todos = { ids, items }
-
-    this.ids = ids
-    this.items = items
+    db.set('todos', { ids: this.ids, items: this.items })
   }
 }
 
